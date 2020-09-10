@@ -10,6 +10,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { SideMenuComponent } from './components/side-menu/side-menu.component';
     SideMenuComponent
   ],
   imports: [
+    HttpClientModule,
     ReactiveFormsModule,
     BrowserModule,
     RouterModule.forRoot(AppRoutes, { useHash: true, scrollPositionRestoration: 'enabled' })

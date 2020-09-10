@@ -9,7 +9,7 @@ import { toast } from 'angular2-materialize';
 })
 export class AuthService {
 
-  public user: User = JSON.parse(localStorage.getItem('user'));
+  public user: User = JSON.parse(sessionStorage.getItem('user'));
 
   constructor(
     private api: ApiService,
@@ -21,7 +21,7 @@ export class AuthService {
     this.api.login(email, password)
       .subscribe(
         (userData: any) => {
-          localStorage.setItem('user', JSON.stringify(userData.user));
+          sessionStorage.setItem('user', JSON.stringify(userData.data));
           toast('Login correcto', 3000);
           this.ngZone.run(() => {
             this.router.navigate(['/dashboard/home']);
@@ -33,14 +33,14 @@ export class AuthService {
   }
 
   logout(){
-    localStorage.removeItem('user');
+    sessionStorage.removeItem('user');
     this.ngZone.run(() => {
-      this.router.navigate(['home']);
+      this.router.navigate(['/login']);
     });
   }
 
   isLogged() {
-    if (localStorage.getItem("user") == null) {
+    if (sessionStorage.getItem("user") == null) {
       return false;
     }
     else {
@@ -49,7 +49,7 @@ export class AuthService {
   }
 
   userData(){
-    return JSON.parse(localStorage.getItem('user'));
+    return JSON.parse(sessionStorage.getItem('user'));
   }
   
 }
