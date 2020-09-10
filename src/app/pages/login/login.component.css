@@ -1,0 +1,11 @@
+.valign-wrapper {
+  height: 100vh;
+  background-image: url('../../../assets/imgs/home.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+img.logo {
+  width: 88%;
+  height: auto;
+}

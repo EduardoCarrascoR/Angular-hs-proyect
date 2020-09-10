@@ -1,16 +1,29 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutes } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LoginComponent } from './pages/login/login.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { HomeComponent } from './pages/home/home.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { RouterModule } from '@angular/router';
+import { SideMenuComponent } from './components/side-menu/side-menu.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    DashboardComponent,
+    HomeComponent,
+    NavbarComponent,
+    SideMenuComponent
   ],
   imports: [
+    ReactiveFormsModule,
     BrowserModule,
-    AppRoutingModule
+    RouterModule.forRoot(AppRoutes, { useHash: true, scrollPositionRestoration: 'enabled' })
   ],
   providers: [],
   bootstrap: [AppComponent]

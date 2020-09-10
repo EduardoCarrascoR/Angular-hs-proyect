@@ -1,0 +1,28 @@
+<div class="valign-wrapper">
+  <div class="container row no-margin-bottom">
+    <div class="col s12 m5">
+      <form class="card-panel hoverable" materialize [formGroup]="loginForm" (ngSubmit)="login()" ngNativeValidate>
+        <div class="row center no-margin">
+          <img class="logo" src="../../../assets/imgs/logo.png">
+        </div>
+        <div class="input-field col s12">
+          <i class="material-icons prefix hs-text-color">email</i>
+          <input formControlName="email" type="email" required class="validate">
+          <label for="icon_prefix">Email</label>
+        </div>
+        <div class="input-field col s12">
+          <i class="material-icons prefix hs-text-color">lock</i>
+          <input formControlName="password" type="password" required class="validate">
+          <label for="icon_prefix">Contraseña</label>
+        </div>
+        <div class="col s12">
+          <button type="submit" class="hoverable btn col s12 waves-effect waves-light hs-color" value="Entrar"><strong class="white-text">Entrar</strong></button>
+        </div>
+        <div class="center">
+          <div class="row"></div>
+          <a class="hs-text-color">¿Olvidó su contraseña?</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

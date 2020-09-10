@@ -1,0 +1,12 @@
+.logo {
+  width: 50%;
+  height: auto;
+}
+
+ul {
+  z-index: auto;
+}
+
+ul li {
+  zoom: 1.7;
+}

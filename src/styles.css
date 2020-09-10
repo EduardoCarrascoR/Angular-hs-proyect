@@ -1,1 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+.hs-color {
+  background-color: #001039;
+}
+
+.hs-text-color {
+  color: #001039;
+}
+
+.container {
+  width: 90%;
+}
+
+.no-margin {
+  margin: 0 !important;
+}
+
+.no-padding {
+  padding: 0 !important;
+}
+
+.no-padding-left {
+  padding-left: 0 !important;
+}
+
+.no-padding-right {
+  padding-right: 0 !important;
+}
