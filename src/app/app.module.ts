@@ -11,6 +11,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { GuardsComponent } from './pages/guards/guards.component';
+import { ClientsComponent } from './pages/clients/clients.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     DashboardComponent,
     HomeComponent,
     NavbarComponent,
-    SideMenuComponent
+    SideMenuComponent,
+    GuardsComponent,
+    ClientsComponent
   ],
   imports: [
     HttpClientModule,
