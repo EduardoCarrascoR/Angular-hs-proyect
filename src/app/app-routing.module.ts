@@ -5,13 +5,17 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AuthenticatedGuard } from './guards/authenticated.guard';
 import { GuardsComponent } from './pages/guards/guards.component';
 import { ClientsComponent } from './pages/clients/clients.component';
+import { CreateGuardComponent } from './pages/create-guard/create-guard.component';
+import { CreateClientComponent } from './pages/create-client/create-client.component';
 
 
 export const AppRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthenticatedGuard], canActivateChild: [AuthenticatedGuard], children: [
     { path: 'home', component: HomeComponent },
     { path: 'guards', component: GuardsComponent },
+    { path: 'createGuard', component: CreateGuardComponent },
     { path: 'clients', component: ClientsComponent },
+    { path: 'createClient', component: CreateClientComponent },
     { path: 'dashboard', redirectTo: 'home', pathMatch: 'full' },
   ] },
   { path: 'login', component: LoginComponent, pathMatch: 'full'  },

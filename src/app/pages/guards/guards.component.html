@@ -7,11 +7,17 @@
         <nav class="hs-color">
           <div class="nav-wrapper">
             <div class="col s12">
-              <a routerLink="/dashboard" class="breadcrumb">Dashboard</a>
-              <a routerLink="/dashboard/home" class="breadcrumb">Guards</a>
+              <a routerLink="/dashboard/home" class="breadcrumb">Dashboard</a>
+              <a routerLink="/dashboard/guards" class="breadcrumb">Guards</a>
             </div>
           </div>
         </nav>
+      </div>
+      <div class="col m8 ">
+        <div class="right-align">
+          <a class="waves-effect hs-color btn " routerLink="/dashboard/createGuard"><i class="material-icons right">add_circle</i>Create</a>
+        </div>
+        
       </div>
     </div>
     <div *ngFor="let guard of guards" class="col m4">

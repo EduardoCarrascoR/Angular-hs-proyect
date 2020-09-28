@@ -1,1 +1,37 @@
-<p>clients works!</p>
+<div class="row">
+    <div class="col m12">
+      <h3 class="hs-text-color">Clients</h3>
+    </div>
+    <div class="row">
+      <div class="col m4">
+        <nav class="hs-color">
+          <div class="nav-wrapper">
+            <div class="col s12">
+              <a routerLink="/dashboard/home" class="breadcrumb">Dashboard</a>
+              <a routerLink="/dashboard/clients" class="breadcrumb">Clients</a>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="col m8 ">
+        <div class="right-align">
+          <a class="waves-effect hs-color btn " routerLink="/dashboard/createClient"><i class="material-icons right">add_circle</i>Create</a>
+        </div>
+        
+      </div>
+    </div>
+    <div *ngFor="let client of clients" class="col m4">
+      <div  class="card">
+        <div class="card-image">
+          <img src="https://loremflickr.com/320/240/paris,boy/all" alt="" />
+          <span class="card-title"></span>
+        </div>
+        <div class="card-content">
+          {{client.name}}
+          <br>
+          {{client.email}}
+        </div>
+      </div>
+    </div>    
+  </div>
+  

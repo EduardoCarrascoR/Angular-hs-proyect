@@ -13,6 +13,8 @@ import { SideMenuComponent } from './components/side-menu/side-menu.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { GuardsComponent } from './pages/guards/guards.component';
 import { ClientsComponent } from './pages/clients/clients.component';
+import { CreateGuardComponent } from './pages/create-guard/create-guard.component';
+import { CreateClientComponent } from './pages/create-client/create-client.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { ClientsComponent } from './pages/clients/clients.component';
     NavbarComponent,
     SideMenuComponent,
     GuardsComponent,
-    ClientsComponent
+    ClientsComponent,
+    CreateGuardComponent,
+    CreateClientComponent
   ],
   imports: [
     HttpClientModule,
