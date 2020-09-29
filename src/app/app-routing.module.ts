@@ -10,15 +10,16 @@ import { CreateClientComponent } from './pages/create-client/create-client.compo
 
 
 export const AppRoutes: Routes = [
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthenticatedGuard], canActivateChild: [AuthenticatedGuard], children: [
+  // { path: 'dashboard', component: DashboardComponent, canActivate: [AuthenticatedGuard], canActivateChild: [AuthenticatedGuard], children: [
+  { path: 'dashboard', component: DashboardComponent, children: [
     { path: 'home', component: HomeComponent },
     { path: 'guards', component: GuardsComponent },
     { path: 'createGuard', component: CreateGuardComponent },
     { path: 'clients', component: ClientsComponent },
     { path: 'createClient', component: CreateClientComponent },
-    { path: 'dashboard', redirectTo: 'home', pathMatch: 'full' },
+    { path: 'dashboard', redirectTo: '/dashboard/home', pathMatch: 'full' },
   ] },
-  { path: 'login', component: LoginComponent, pathMatch: 'full'  },
+  { path: 'login', component: LoginComponent, pathMatch: 'full' },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   // { path: '**', redirectTo: '/404-not-found', pathMatch: 'full' }
 ];
