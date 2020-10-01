@@ -17,8 +17,8 @@ export class AuthService {
     public router: Router, // para enviar al usuario a otra vista
   ) { }
 
-  login(email, password){
-    this.api.login(email, password)
+  login(rut, password){
+    this.api.login(rut, password)
       .subscribe(
         (userData: any) => {
           sessionStorage.setItem('user', JSON.stringify(userData.data));
@@ -27,7 +27,7 @@ export class AuthService {
             this.router.navigate(['/dashboard/home']);
           });
         }, err => {
-          toast(`Email y/o contraseña incorrectas`, 3000);
+          toast(`Rut y/o contraseña incorrectas`, 3000);
         }
       );
   }

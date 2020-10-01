@@ -1,17 +1,22 @@
 <div class="row card-panel hoverable col m7 offset-m2">
-  <form class="row" materialize [formGroup]="createGuardForm" (ngSubmit)="login()" ngNativeValidate>
+  <form class="row" materialize [formGroup]="createGuardForm" (ngSubmit)="addGuard()" ngNativeValidate>
     <div class="row center no-margin">
       <h3>Nuevo Guardia</h3>
     </div>
     <div class="input-field col s12">
       <i class="material-icons prefix text-uss-color">account_circle</i>
-      <input formControlName="name" type="text" required class="validate">
-      <label for="icon_prefix">Nombre Completo</label>
+      <input formControlName="firstname" type="text" required class="validate">
+      <label for="icon_prefix">Nombres</label>
+    </div>
+    <div class="input-field col s12">
+      <i class="material-icons prefix text-uss-color">account_circle</i>
+      <input formControlName="lastname" type="text" required class="validate">
+      <label for="icon_prefix">Apellidos</label>
     </div>
     <div class="input-field col s12">
       <i class="material-icons prefix text-uss-color">location_on</i>
-      <input formControlName="address" type="text" required class="validate">
-      <label for="icon_prefix">Dirección</label>
+      <input formControlName="rut" type="text" required class="validate">
+      <label for="icon_prefix">Rut</label>
     </div>
     <div class="input-field col s12">
       <i class="material-icons prefix text-uss-color">phone</i>
@@ -23,8 +28,13 @@
       <input formControlName="email" type="email" required class="validate">
       <label for="icon_prefix">Email</label>
     </div>
+    <div class="input-field col s12">
+      <i class="material-icons prefix text-uss-color">lock</i>
+      <input formControlName="password" type="password" required class="validate">
+      <label for="icon_prefix">password</label>
+    </div>
     <div class="col s12">
-      <button type="submit" class="hoverable btn col s12 waves-effect waves-light hs-color" value="Entrar"><strong class="white-text">Crear</strong></button>
+      <button routerLink="/dashboard/guards" type="submit" class="hoverable btn col s12 waves-effect waves-light hs-color" value="Entrar"><strong class="white-text">Crear</strong></button>
     </div>
   </form>
 </div>

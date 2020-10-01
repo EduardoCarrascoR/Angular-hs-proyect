@@ -1,17 +1,14 @@
 export interface User {
 
-  user_id?: number;
-  name: string;
+  id?: number;
+  firstname: string;
   lastName: string;
   email: string;
-  rol: string;
+  rut: string;
+  phone: string;
   createdAt?: any;
   lastLogin?: any;
   token?: string;
   emailVerified?: string;
-  school_school_id: number;
-  teacher_id?: number,
-  student_id?: number,
-  state: string;
 
 }
