@@ -14,7 +14,7 @@ export class CreateGuardComponent implements OnInit {
 
   constructor(
     public formBuilder: FormBuilder,
-    public api: ApiService
+    private api: ApiService
   ) { }
 
   ngOnInit(): void {
@@ -25,7 +25,7 @@ export class CreateGuardComponent implements OnInit {
     return this.formBuilder.group({
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
-      address: ['', Validators.required],
+      rut: ['', Validators.required],
       phone: ['', Validators.required],
       email: ['', Validators.required],
       password: ['', Validators.required],

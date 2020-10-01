@@ -1,0 +1,36 @@
+<div class="row card-panel hoverable col m7 offset-m2">
+    <form class="row" materialize [formGroup]="createShiftForm" (ngSubmit)="addShift()" ngNativeValidate>
+      <div class="row center no-margin">
+        <h3>Nueva Ronda</h3>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix text-uss-color">assignment_ind</i>
+        <input formControlName="type" type="text" required class="validate">
+        <label for="icon_prefix">Tipo</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix text-uss-color">access_time</i>
+        <input formControlName="start" type="time" required class="validate">
+        <label for="icon_prefix">Inicio</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix text-uss-color">access_time</i>
+        <input formControlName="finish" type="time" required class="validate">
+        <label for="icon_prefix">Termino</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix text-uss-color">today</i>
+        <input formControlName="date" type="datetime" required class="validate">
+        <label for="icon_prefix">Fecha</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix text-uss-color">location_on</i>
+        <input formControlName="shift_place" type="text" required class="validate">
+        <label for="icon_prefix">Dirección</label>
+      </div>
+      <div class="col s12">
+        <button type="submit" class="hoverable btn col s12 waves-effect waves-light hs-color" value="Entrar"><strong class="white-text">Crear</strong></button>
+      </div>
+    </form>
+  </div>
+  
