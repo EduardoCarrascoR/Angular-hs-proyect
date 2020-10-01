@@ -6,6 +6,10 @@
   color: #001039;
 }
 
+.content-input {
+  margin-top: 3px !important;
+}
+
 .container {
   width: 90%;
 }

@@ -8,6 +8,7 @@ import { ClientsComponent } from './pages/clients/clients.component';
 import { CreateGuardComponent } from './pages/create-guard/create-guard.component';
 import { CreateClientComponent } from './pages/create-client/create-client.component';
 import { CreateShiftComponent } from './pages/create-shift/create-shift.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 
 export const AppRoutes: Routes = [
@@ -19,6 +20,7 @@ export const AppRoutes: Routes = [
     { path: 'clients', component: ClientsComponent },
     { path: 'createClient', component: CreateClientComponent },
     { path: 'createShift', component: CreateShiftComponent },
+    { path: 'profile', component: ProfileComponent },
     { path: 'dashboard', redirectTo: '/dashboard/home', pathMatch: 'full' },
   ] },
   { path: 'login', component: LoginComponent, pathMatch: 'full' },

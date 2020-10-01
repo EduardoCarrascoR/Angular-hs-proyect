@@ -16,6 +16,7 @@ import { ClientsComponent } from './pages/clients/clients.component';
 import { CreateGuardComponent } from './pages/create-guard/create-guard.component';
 import { CreateClientComponent } from './pages/create-client/create-client.component';
 import { CreateShiftComponent } from './pages/create-shift/create-shift.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { CreateShiftComponent } from './pages/create-shift/create-shift.componen
     ClientsComponent,
     CreateGuardComponent,
     CreateClientComponent,
-    CreateShiftComponent
+    CreateShiftComponent,
+    ProfileComponent
   ],
   imports: [
     HttpClientModule,
