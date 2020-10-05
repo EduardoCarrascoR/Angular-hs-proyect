@@ -15,7 +15,7 @@
       </div>
       <div class="input-field col s12 content-input-profile">
         <i class="material-icons prefix text-uss-color">subtitles</i>
-        <input formControlName="rut" type="text" required class="validate">
+        <input formControlName="rut" type="text" pattern="[0-9]{1,2}.[0-9]{3}.[0-9]{3}-[0-9Kk]{1}" placeholder="Ej: 11.111.111-1" maxlength="12" required class="validate">
         <label for="icon_prefix">Rut</label>
       </div>
       <div class="input-field col s12 content-input-profile">
@@ -34,7 +34,7 @@
         <label for="icon_prefix">password</label>
       </div>
       <div class="col s12">
-        <button routerLink="/dashboard/guards" type="submit" class="hoverable btn col s12 waves-effect waves-light hs-color" value="Entrar"><strong class="white-text">Crear</strong></button>
+        <button routerLink="/dashboard/guards" type="submit" class="hoverable btn col s12 waves-effect waves-light hs-color" value="Entrar"><strong class="white-text">Guardar</strong></button>
       </div>
     </form>
   </div>
