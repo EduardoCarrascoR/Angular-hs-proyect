@@ -8,7 +8,7 @@ export interface User {
   phone: string;
   createdAt?: any;
   lastLogin?: any;
-  token?: string;
+  accessToken?: string;
   emailVerified?: string;
 
 }

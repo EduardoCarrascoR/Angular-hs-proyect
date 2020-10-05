@@ -8,12 +8,15 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  user: User = JSON.parse(sessionStorage.getItem('user'))
+
+  user: User
+
   constructor(
     private auth: AuthService
-    ) { }
-    
+  ) { }
+
   ngOnInit(): void {
+    this.user = this.auth.userData()
   }
 
   logout(): void {
