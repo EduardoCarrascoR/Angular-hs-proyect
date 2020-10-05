@@ -1,12 +1,17 @@
 <div class="row card-panel hoverable col m7 offset-m2">
     <form class="row" materialize [formGroup]="createShiftForm" (ngSubmit)="addShift()" ngNativeValidate>
       <div class="row center no-margin">
-        <h3>Nueva Ronda</h3>
+        <h3>Nuevo Turno</h3>
       </div>
       <div class="input-field col s12">
         <i class="material-icons prefix hs-text-color">assignment_ind</i>
         <input formControlName="type" type="text" required class="validate">
         <label for="icon_prefix hs-text-color">Tipo</label>
+      </div>
+      <div class="input-field col s12 content-input">
+        <h6 class="move-lavel hs-text-color " for="icon_prefix">Guardias</h6>
+        <i class="material-icons prefix hs-text-color">assignment_ind</i>
+        <input formControlName="start" type="text" required class="validate">
       </div>
       <div class="input-field col s12 content-input">
         <h6 class="move-lavel hs-text-color " for="icon_prefix">Inicio</h6>

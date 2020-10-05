@@ -16,16 +16,14 @@
   </div>
   <div *ngFor="let guard of guards" class="col m4">
     <div class="card">
-      <div class="card-image">
-        <img src="https://loremflickr.com/320/240/paris,boy/all" alt="" />
-        <span class="card-title"></span>
+      <div class="card-image center">
+        <i class="material-icons prefix hs-text-color imagefont">assignment_ind</i>
       </div>
       <div class="card-content">
-        {{guard.firstname}}
-        <br>
-        {{guard.rut}}
-        <br>
-        {{guard.email}}
+        <h6>Nombre: {{guard.firstname}}</h6>
+        <h6>Rut:  {{guard.rut}}</h6>       
+        <h6>Email:  {{guard.email}}</h6>
+        
       </div>
     </div>
   </div>

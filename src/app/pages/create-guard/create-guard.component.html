@@ -14,14 +14,14 @@
       <label for="icon_prefix">Apellidos</label>
     </div>
     <div class="input-field col s12">
+      <h6 class="move-lavel hs-text-color " for="icon_prefix">Rut</h6>
       <i class="material-icons prefix text-uss-color">subtitles</i>
-      <input formControlName="rut" type="text" required class="validate">
-      <label for="icon_prefix">Rut</label>
+      <input formControlName="rut" type="text" pattern="[0-9]{1,2}.[0-9]{3}.[0-9]{3}-[0-9Kk]{1}" placeholder="Ej: 11.111.111-1" maxlength="12" required class="validate">
     </div>
     <div class="input-field col s12">
+      <h6 class="move-lavel hs-text-color " for="icon_prefix">Teléfono</h6>
       <i class="material-icons prefix text-uss-color">phone</i>
-      <input formControlName="phone" type="number" required class="validate">
-      <label for="icon_prefix">Teléfono</label>
+      <input formControlName="phone" type="text" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" placeholder="Ej: 569-8765-4321" maxlength="13" required class="validate">
     </div>
     <div class="input-field col s12">
       <i class="material-icons prefix text-uss-color">email</i>
