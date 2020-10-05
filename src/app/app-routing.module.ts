@@ -11,8 +11,8 @@ import { CreateShiftComponent } from './pages/create-shift/create-shift.componen
 import { ProfileComponent } from './pages/profile/profile.component';
 
 
-export const AppRoutes: Routes = [
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthenticatedGuard], canActivateChild: [AuthenticatedGuard], children: [
+export const AppRoutes: Routes = [{
+  path: 'dashboard', component: DashboardComponent, canActivate: [AuthenticatedGuard], canActivateChild: [AuthenticatedGuard], children: [
   // { path: 'dashboard', component: DashboardComponent, children: [
     { path: 'home', component: HomeComponent },
     { path: 'guards', component: GuardsComponent },
@@ -22,8 +22,9 @@ export const AppRoutes: Routes = [
     { path: 'createShift', component: CreateShiftComponent },
     { path: 'profile', component: ProfileComponent },
     { path: 'dashboard', redirectTo: '/dashboard/home', pathMatch: 'full' },
-  ] },
-  { path: 'login', component: LoginComponent, pathMatch: 'full' },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  ]
+},
+{ path: 'login', component: LoginComponent, pathMatch: 'full' },
+{ path: '', redirectTo: '/login', pathMatch: 'full' },
   // { path: '**', redirectTo: '/404-not-found', pathMatch: 'full' }
 ];
