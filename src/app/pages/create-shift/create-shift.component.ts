@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { toast } from 'angular2-materialize';
+import { Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -10,6 +12,9 @@ import { ApiService } from 'src/app/services/api.service';
 export class CreateShiftComponent implements OnInit {
 
   createShiftForm: FormGroup;
+  types: Observable<any>
+  public typeWrong = null;
+  public guards$: Observable<any>
 
   constructor(
     public formBuilder: FormBuilder,
@@ -18,6 +23,7 @@ export class CreateShiftComponent implements OnInit {
 
   ngOnInit(): void {
     this.createShiftForm = this.createCreateShiftForm();
+    this.guards$ = this.api.getGuards()
   }
 
   private createCreateShiftForm() {
@@ -31,6 +37,33 @@ export class CreateShiftComponent implements OnInit {
   }
 
   addShift() {
+    if(this.createShiftForm.value.type === 'diurno') {
+      this.createShiftForm.value.type = 'Day'
+    } else if(this.createShiftForm.value.type === 'vespertino') {
+      this.createShiftForm.value.type = 'Night'
+    } else {
+      toast('Turno debe ser diurno o vespertino')
+      throw Error('Error en tipo de turno')
+    }
+  }
 
+  // confirm new password validator
+  checkType() {
+    if (this.createShiftForm.value.type == 'diurno' || this.createShiftForm.value.type == 'vespertino') {
+      this.type.setErrors({ mismatch: false });
+      this.typeWrong = false;
+    } else {
+      this.type.setErrors({ mismatch: true });
+      this.typeWrong = true;
+    }
+  }
+  
+  // getting the form control elements
+  get type(): AbstractControl {
+    return this.createShiftForm.controls['type'];
+  }
+
+  datepicker(e) {
+    e.preventDefault()
   }
 }

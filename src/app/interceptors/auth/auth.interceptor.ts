@@ -9,7 +9,7 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>,
     next: HttpHandler): Observable<HttpEvent<any>> {
 
-      const user: User = JSON.parse(localStorage.getItem("user"));
+      const user: User = JSON.parse(sessionStorage.getItem("user"))
       
       if (user) {
       const authJwtToken = user.accessToken;
