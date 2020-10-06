@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Client } from 'src/app/models/client.interface';
 import { ApiService } from 'src/app/services/api.service';
 
@@ -9,22 +10,15 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class ClientsComponent implements OnInit {
 
-  clients: Client[];
+  clients$: Observable<any>;
 
   constructor(
     private api: ApiService
   ) { }
 
   ngOnInit(): void {
-    this.api.getClients().toPromise()
-      .then((data: any) => {
-        if(data.success === true){
-          this.clients = data.clients
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      })
+    this.clients$ = this.api.getClients()
+
   }
 
 }

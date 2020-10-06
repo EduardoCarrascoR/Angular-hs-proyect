@@ -29,7 +29,7 @@ export class ApiService {
   }
 
   postClient(name: string, address: string, phone: string, email: string): Observable<Client> {
-    return this.http.post<Client>(this.url + '/clients', { name, address, phone, email })
+    return this.http.post<Client>(this.url + '/clients', { name, phone, email, address })
   }
 
   postGuard(firstname: string, lastname: string, rut: string, phone: string, email: string, password: string): Observable<User> {

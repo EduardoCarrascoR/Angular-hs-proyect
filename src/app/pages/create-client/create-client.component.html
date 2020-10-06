@@ -16,7 +16,7 @@
     <div class="input-field col s12">
       <h6 class="move-lavel hs-text-color " for="icon_prefix">Teléfono</h6>
       <i class="material-icons prefix text-uss-color">phone</i>
-      <input formControlName="phone" type="text" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" placeholder="Ej: 569-8765-4321" maxlength="13" required class="validate">
+      <input formControlName="phone" placeholder="Ej: +56987654321" maxlength="12" required class="validate">
     </div>
     <div class="input-field col s12">
       <i class="material-icons prefix text-uss-color">email</i>
@@ -24,7 +24,7 @@
       <label for="icon_prefix">Email</label>
     </div>
     <div class="col s12">
-      <button routerLink="/dashboard/clients" type="submit" class="hoverable btn col s12 waves-effect waves-light hs-color" value="Entrar"><strong class="white-text">Crear</strong></button>
+      <button type="submit" class="hoverable btn col s12 waves-effect waves-light hs-color" value="Entrar"><strong class="white-text">Crear</strong></button>
     </div>
   </form>
 </div>

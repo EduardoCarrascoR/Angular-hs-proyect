@@ -14,18 +14,60 @@
       </nav>
     </div>
   </div>
-  <div *ngFor="let client of clients" class="col m4">
-    <div class="card">
-      <div class="card-image center">
-        <i class="material-icons prefix hs-text-color imagefont">assignment_ind</i>
+  <div *ngIf="clients$ | loading | async as clientsData;">
+
+    <!-- clients data -->
+    <ng-template [ngIf]="clientsData.value">
+      <div *ngFor="let client of clientsData.value.clients" class="col m4">
+        <div class="card">
+          <div class="card-image center">
+            <i class="material-icons prefix hs-text-color imagefont">assignment_ind</i>
+          </div>
+          <div class="card-content">
+            <h6>Nombre: {{(client.name || '')}}</h6>
+            <h6>Recinto: {{ client.address }}</h6>
+            <h6>Phone: {{ client.phone }}</h6>
+            <h6>Email: {{ client.email }}</h6>
+          </div>
+        </div>
       </div>
-      <div class="card-content">
-        <h6>Nombre:  {{client.name}}</h6>
-        <h6>Dirección:  {{client.address}}</h6>
-        <h6>Telefono: {{client.phone}}</h6>
-        <h6>Email:  {{client.email}}</h6>
+    </ng-template>
+    <!-- error for get clients data -->
+    <ng-template [ngIf]="clientsData.error">
+      <div class="col l6 offset-l3 center">
+        <div class="card-panel">
+          <i class="material-icons large amber-text">error_outline</i>
+          <h3>Ha ocurrido un error</h3>
+          <p>Estamos experimentando errores en los servidores. Póngase en contacto con el adminstrador del sistema.</p>
+        </div>
       </div>
-    </div>
+    </ng-template>
+    <!-- loading for get clients data -->
+    <ng-template [ngIf]="clientsData.loading">
+      <div class="row center">
+        <div class="row"></div>
+        <div class="row"></div>
+        <div class="row"></div>
+        <div class="row"></div>
+        <div class="row"></div>
+        <div class="row"></div>
+        <div class="row"></div>
+        <div class="row"></div>
+        <div class="row"></div>
+        <div class="row"></div>
+        <div class="preloader-wrapper big active">
+          <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
   </div>
 </div>
 <div class="fixed-action-btn">

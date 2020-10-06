@@ -24,7 +24,7 @@
             <i class="material-icons prefix hs-text-color imagefont">assignment_ind</i>
           </div>
           <div class="card-content">
-            <h6>Nombre: {{ guard.firstname }}</h6>
+            <h6>Nombre: {{(guard.firstname || '') + ' ' + (guard.lastname || '')}}</h6>
             <h6>Rut: {{ guard.rut }}</h6>
             <h6>Email: {{ guard.email }}</h6>
           </div>

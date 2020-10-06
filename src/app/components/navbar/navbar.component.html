@@ -3,7 +3,7 @@
     <div class="nav-wrapper container">
       <a href="#!" class="brand-logo"><img src="../../../assets/imgs/logo.png" ></a>
       <ul class="right hide-on-med-and-down" *ngIf="user">
-        <li><a materialize="dropdown" class="dropdown-button hs-text-color" data-activates="dropdown1" data-hover="true" data-beloworigin="true"><i class="material-icons hs-text-color right">account_circle</i><strong>{{user.firstname + ' ' + (user.lastname || '')}}</strong></a></li>
+        <li><a materialize="dropdown" class="dropdown-button hs-text-color" data-activates="dropdown1" data-hover="true" data-beloworigin="true"><i class="material-icons hs-text-color right">account_circle</i><strong>{{(user.firstname || '') + ' ' + (user.lastname || '')}}</strong></a></li>
       </ul>
     </div>
   </nav>

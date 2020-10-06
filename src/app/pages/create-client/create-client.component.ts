@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { toast } from 'angular2-materialize';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -12,8 +14,9 @@ export class CreateClientComponent implements OnInit {
   createClientForm: FormGroup;
 
   constructor(
+    private router: Router,
     public formBuilder: FormBuilder,
-    public api: ApiService
+    private api: ApiService
   ) { }
 
   ngOnInit(): void {
@@ -29,13 +32,20 @@ export class CreateClientComponent implements OnInit {
     })
   }
 
-  async addClient() {
+  addClient() {
     let name = this.createClientForm.value.name;
     let address = this.createClientForm.value.address;
     let phone = this.createClientForm.value.phone;
     let email = this.createClientForm.value.email;
-    await this.api.postClient(name, address, phone, email)
-    console.log('post realizado')
+    this.api.postClient(name, address, phone, email).toPromise()
+    .then((res: any) => {
+      console.log(res);
+      toast('Cliente creado correctamente', 3000)
+      this.router.navigate(['/dashboard/clients'])
+    })
+    .catch(err => {
+      toast('Error al crear cliente', 3000)
+    })
   }
 
 }

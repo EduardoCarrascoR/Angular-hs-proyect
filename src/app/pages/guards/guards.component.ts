@@ -18,15 +18,6 @@ export class GuardsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-   /*  this.api.getGuards().toPromise()
-      .then((data: any) => {
-        if(data.success === true){
-          this.guards = data.guards
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      }) */
     this.guards$ = this.api.getGuards()
   }
 
