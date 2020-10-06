@@ -25,15 +25,15 @@ export class LoginComponent implements OnInit {
 
   private createLoginForm() {
     return this.formBuilder.group({
-      email: ['', Validators.required],
+      rut: ['', Validators.required],
       password: ['', Validators.required]
     })
   }
 
   login(){
-    let email = this.loginForm.value.email;
+    let rut = this.loginForm.value.rut;
     let password = this.loginForm.value.password;
-    this.auth.login(email, password);
+    this.auth.login(rut, password)
   }
 
 }

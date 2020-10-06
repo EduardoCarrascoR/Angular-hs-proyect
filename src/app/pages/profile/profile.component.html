@@ -1,0 +1,31 @@
+<div class="row card-panel hoverable col m7 offset-m2">
+    <form class="row" materialize [formGroup]="createProfileForm" (ngSubmit)="updateProfile()" ngNativeValidate>
+      <div class="row center no-margin">
+        <h3>Perfil</h3>
+      </div>
+      <div class="input-field col s12 content-input-profile">
+        <i class="material-icons prefix text-uss-color">account_circle</i>
+        <input formControlName="firstname" type="text" required class="validate">
+        <label for="icon_prefix">Nombres</label>
+      </div>
+      <div class="input-field col s12 content-input-profile">
+        <i class="material-icons prefix text-uss-color">account_circle</i>
+        <input formControlName="lastname" type="text" required class="validate">
+        <label for="icon_prefix">Apellidos</label>
+      </div>
+      <div class="input-field col s12 content-input-profile">
+        <i class="material-icons prefix text-uss-color">phone</i>
+        <input formControlName="phone" type="number" required class="validate">
+        <label for="icon_prefix">Teléfono</label>
+      </div>
+      <div class="input-field col s12 content-input-profile">
+        <i class="material-icons prefix text-uss-color">email</i>
+        <input formControlName="email" type="email" required class="validate">
+        <label for="icon_prefix">Email</label>
+      </div>
+      <div class="col s12">
+        <button routerLink="/dashboard/guards" type="submit" class="hoverable btn col s12 waves-effect waves-light hs-color" value="Entrar"><strong class="white-text">Guardar</strong></button>
+      </div>
+    </form>
+  </div>
+  

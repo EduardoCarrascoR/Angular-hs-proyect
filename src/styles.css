@@ -6,6 +6,23 @@
   color: #001039;
 }
 
+.content-input {
+  margin-top: 3px !important;
+}
+
+.move-lavel {
+  margin-left: 40px;
+  font-size: 13px;
+}
+
+.center{
+  align-items: center;
+}
+
+.imagefont{
+  font-size: 6rem;
+}
+
 .container {
   width: 90%;
 }

@@ -1,0 +1,49 @@
+<div class="row card-panel hoverable col m7 offset-m2">
+  <form class="row" materialize [formGroup]="createShiftForm" (ngSubmit)="addShift()" ngNativeValidate>
+    <div class="row center no-margin">
+      <h3>Crear Turno</h3>
+    </div>
+    <div class="input-field col s12">
+      <i class="material-icons prefix hs-text-color">assignment_ind</i>
+      <input formControlName="type" list="types" type="text" required class="validate" (keyup)="checkType()"
+        [ngClass]="{ invalid: typeWrong, validate: !typeWrong }">
+      <label for="icon_prefix hs-text-color">Tipo</label>
+      <datalist id="types">
+        <option>diurno</option>
+        <option>vespertino</option>
+      </datalist>
+    </div>
+    <div class="input-field col s12 content-input">
+      <h6 class="move-lavel hs-text-color " for="icon_prefix">Guardias</h6>
+      <i class="material-icons prefix hs-text-color">assignment_ind</i>
+      <input formControlName="start" list="guards" type="text" required class="validate">
+      <datalist id="guards" *ngIf="guards$ | async as guards">
+        <option *ngFor="let guard of guards.guards">{{ guard.firstname + ' ' + guard.lastname}}</option>
+      </datalist>
+    </div>
+    <div class="input-field col s12 content-input">
+      <h6 class="move-lavel hs-text-color " for="icon_prefix">Inicio</h6>
+      <i class="material-icons prefix hs-text-color">access_time</i>
+      <input formControlName="start" type="time" required class="validate">
+    </div>
+    <div class="input-field col s12 content-input">
+      <h6 class="move-lavel hs-text-color" for="icon_prefix ">Termino</h6>
+      <i class="material-icons prefix hs-text-color">access_time</i>
+      <input formControlName="finish" type="time" required class="validate">
+    </div>
+    <div class="input-field col s12 content-input">
+      <h6 class="move-lavel hs-text-color" for="icon_prefix ">Fecha</h6>
+      <i class="material-icons prefix hs-text-color">today</i>
+      <input formControlName="date" type="date" required class="validate">
+    </div>
+    <div class="input-field col s12">
+      <i class="material-icons prefix hs-text-color">location_on</i>
+      <input formControlName="shift_place" type="text" required class="validate">
+      <label for="icon_prefix">Dirección</label>
+    </div>
+    <div class="col s12">
+      <button type="submit" class="hoverable btn col s12 waves-effect waves-light hs-color" value="Entrar"><strong
+          class="white-text">Crear</strong></button>
+    </div>
+  </form>
+</div>

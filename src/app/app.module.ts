@@ -10,7 +10,15 @@ import { HomeComponent } from './pages/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { GuardsComponent } from './pages/guards/guards.component';
+import { ClientsComponent } from './pages/clients/clients.component';
+import { CreateGuardComponent } from './pages/create-guard/create-guard.component';
+import { CreateClientComponent } from './pages/create-client/create-client.component';
+import { CreateShiftComponent } from './pages/create-shift/create-shift.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { LoadingPipe } from './pipes/loading.pipe';
+import { AuthInterceptor } from './interceptors/auth/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -19,7 +27,14 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     DashboardComponent,
     HomeComponent,
     NavbarComponent,
-    SideMenuComponent
+    SideMenuComponent,
+    GuardsComponent,
+    ClientsComponent,
+    CreateGuardComponent,
+    CreateClientComponent,
+    CreateShiftComponent,
+    ProfileComponent,
+    LoadingPipe
   ],
   imports: [
     HttpClientModule,
@@ -27,7 +42,13 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     BrowserModule,
     RouterModule.forRoot(AppRoutes, { useHash: true, scrollPositionRestoration: 'enabled' })
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi:true,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
