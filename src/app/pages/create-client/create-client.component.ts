@@ -35,7 +35,7 @@ export class CreateClientComponent implements OnInit {
   addClient() {
     let name = this.createClientForm.value.name;
     let address = this.createClientForm.value.address;
-    let phone = this.createClientForm.value.phone;
+    let phone = this.createClientForm.value.phone.toString();
     let email = this.createClientForm.value.email;
     this.api.postClient(name, address, phone, email).toPromise()
     .then((res: any) => {
