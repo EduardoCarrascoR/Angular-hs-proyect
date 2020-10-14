@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { toast } from 'angular2-materialize';
 import { Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
+import { MaterializeAction } from "angular2-materialize";
 
 @Component({
   selector: 'app-create-shift',
@@ -10,6 +11,19 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./create-shift.component.css']
 })
 export class CreateShiftComponent implements OnInit {
+
+  chipsActions = new EventEmitter<string|MaterializeAction>();
+  autocompleteInit = {
+    autocompleteOptions: {
+      data: {
+        /* 'Apple': null,
+        'Microsoft': null,
+        'Google': null */
+      },
+      limit: Infinity,
+      minLength: 1
+    }
+  };
 
   createShiftForm: FormGroup;
   types: Observable<any>
@@ -23,7 +37,15 @@ export class CreateShiftComponent implements OnInit {
 
   ngOnInit(): void {
     this.createShiftForm = this.createCreateShiftForm();
-    this.guards$ = this.api.getGuards()
+    this.api.getGuards().toPromise()
+      .then((res: any) => {
+        res.guards.forEach(guard => {
+          this.autocompleteInit.autocompleteOptions.data[`${guard.firstname} ${guard.lastname}`] == null
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      })
   }
 
   private createCreateShiftForm() {
@@ -65,5 +87,18 @@ export class CreateShiftComponent implements OnInit {
 
   datepicker(e) {
     e.preventDefault()
+  }
+
+  add(chip) {
+    console.log("Chips: " + chip.tag);
+    // aqui igualar el chip.tag a la variable q guarda el dato del formulario
+  }
+
+  delete(chip) {
+    console.log("Chip deleted: " + chip.tag);
+  }
+
+  select(chip) {
+    console.log("Chip selected: " + chip.tag);
   }
 }

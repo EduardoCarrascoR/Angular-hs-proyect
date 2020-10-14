@@ -5,21 +5,25 @@
     </div>
     <div class="input-field col s12">
       <i class="material-icons prefix hs-text-color">assignment_ind</i>
-      <input formControlName="type" list="types" type="text" required class="validate" (keyup)="checkType()"
-        [ngClass]="{ invalid: typeWrong, validate: !typeWrong }">
+      <input formControlName="type" list="types" type="text" required class="validate" (keyup)="checkType()" [ngClass]="{ invalid: typeWrong, validate: !typeWrong }">
       <label for="icon_prefix hs-text-color">Tipo</label>
       <datalist id="types">
         <option>diurno</option>
         <option>vespertino</option>
       </datalist>
     </div>
-    <div class="input-field col s12 content-input">
+    <!-- <div class="input-field col s12 content-input">
       <h6 class="move-lavel hs-text-color " for="icon_prefix">Guardias</h6>
       <i class="material-icons prefix hs-text-color">assignment_ind</i>
       <input formControlName="start" list="guards" type="text" required class="validate">
       <datalist id="guards" *ngIf="guards$ | async as guards">
         <option *ngFor="let guard of guards.guards">{{ guard.firstname + ' ' + guard.lastname}}</option>
       </datalist>
+    </div> -->
+    <div class="input field col s12 content-input">
+      <h6 class="move-lavel hs-text-color " for="icon_prefix">Guardias</h6>
+      <i class="material-icons prefix hs-text-color absolute">assignment_ind</i>
+      <div class="chips" (chip.add)="add($event.detail)" materialize="material_chip" [materializeParams]="[autocompleteInit]"></div>
     </div>
     <div class="input-field col s12 content-input">
       <h6 class="move-lavel hs-text-color " for="icon_prefix">Inicio</h6>
@@ -42,8 +46,7 @@
       <label for="icon_prefix">Dirección</label>
     </div>
     <div class="col s12">
-      <button type="submit" class="hoverable btn col s12 waves-effect waves-light hs-color" value="Entrar"><strong
-          class="white-text">Crear</strong></button>
+      <button type="submit" class="hoverable btn col s12 waves-effect waves-light hs-color" value="Entrar"><strong class="white-text">Crear</strong></button>
     </div>
   </form>
 </div>
