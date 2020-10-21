@@ -15,11 +15,7 @@ export class CreateShiftComponent implements OnInit {
   chipsActions = new EventEmitter<string|MaterializeAction>();
   autocompleteInit = {
     autocompleteOptions: {
-      data: {
-        /* 'Apple': null,
-        'Microsoft': null,
-        'Google': null */
-      },
+      data: {},
       limit: Infinity,
       minLength: 1
     }
@@ -28,7 +24,8 @@ export class CreateShiftComponent implements OnInit {
   createShiftForm: FormGroup;
   types: Observable<any>
   public typeWrong = null;
-  public guards$: Observable<any>
+  guards: any
+  guardsId: number[] = []
 
   constructor(
     public formBuilder: FormBuilder,
@@ -37,15 +34,9 @@ export class CreateShiftComponent implements OnInit {
 
   ngOnInit(): void {
     this.createShiftForm = this.createCreateShiftForm();
-    this.api.getGuards().toPromise()
-      .then((res: any) => {
-        res.guards.forEach(guard => {
-          this.autocompleteInit.autocompleteOptions.data[`${guard.firstname} ${guard.lastname}`] == null
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      })
+    this.api.getGuards().subscribe(guards => {
+      this.guards = guards;
+    });
   }
 
   private createCreateShiftForm() {
@@ -67,6 +58,7 @@ export class CreateShiftComponent implements OnInit {
       toast('Turno debe ser diurno o vespertino')
       throw Error('Error en tipo de turno')
     }
+    console.log(this.createShiftForm.value.type,this.createShiftForm.value.start,this.createShiftForm.value.finish, this.createShiftForm.value.date, this.createShiftForm.value.shift_place, this.guards)
   }
 
   // confirm new password validator
@@ -90,7 +82,14 @@ export class CreateShiftComponent implements OnInit {
   }
 
   add(chip) {
-    console.log("Chips: " + chip.tag);
+    for(let guard of this.guards.guards) {
+      console.log(guard, guard.firstname + " " + guard.lastname, chip.tag);
+      let name = String(guard.firstname.concat(" ").concat(guard.laststname));
+      console.log(name == String(chip.tag));
+      if( name == String(chip.tag)){ console.log(chip.tag) } else { console.error("Error");
+      }
+    }
+    
     // aqui igualar el chip.tag a la variable q guarda el dato del formulario
   }
 
