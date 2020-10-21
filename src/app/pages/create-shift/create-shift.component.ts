@@ -4,6 +4,7 @@ import { toast } from 'angular2-materialize';
 import { Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { MaterializeAction } from "angular2-materialize";
+import { User } from 'src/app/models/user.interface';
 
 @Component({
   selector: 'app-create-shift',
@@ -12,20 +13,25 @@ import { MaterializeAction } from "angular2-materialize";
 })
 export class CreateShiftComponent implements OnInit {
 
-  chipsActions = new EventEmitter<string|MaterializeAction>();
+
+  guardsSelected: string[] = []
+  guardsIds: number[] = []
+  guardsNames: string[] = []
+  chipsActions = new EventEmitter<string | MaterializeAction>();
   autocompleteInit = {
     autocompleteOptions: {
-      data: {},
+      data: {
+        '': null
+      },
       limit: Infinity,
       minLength: 1
     }
   };
 
   createShiftForm: FormGroup;
-  types: Observable<any>
+  // types: Observable<any>
   public typeWrong = null;
-  guards: any
-  guardsId: number[] = []
+  guards: User[] = []
 
   constructor(
     public formBuilder: FormBuilder,
@@ -34,8 +40,12 @@ export class CreateShiftComponent implements OnInit {
 
   ngOnInit(): void {
     this.createShiftForm = this.createCreateShiftForm();
-    this.api.getGuards().subscribe(guards => {
-      this.guards = guards;
+    this.api.getGuards().subscribe((guards: any) => {
+      this.guards = guards.guards;
+      this.guards.forEach(guard => {
+        this.guardsNames.push(guard.firstname + ' ' + guard.lastname)
+        this.autocompleteInit.autocompleteOptions.data[guard.firstname + ' ' + guard.lastname] = null
+      })
     });
   }
 
@@ -46,19 +56,43 @@ export class CreateShiftComponent implements OnInit {
       finish: ['', Validators.required],
       date: ['', Validators.required],
       shift_place: ['', Validators.required],
+      guards: ['', Validators.required],
     })
   }
 
   addShift() {
-    if(this.createShiftForm.value.type === 'diurno') {
+    if (this.createShiftForm.value.type === 'diurno') {
       this.createShiftForm.value.type = 'Day'
-    } else if(this.createShiftForm.value.type === 'vespertino') {
+    } else if (this.createShiftForm.value.type === 'vespertino') {
       this.createShiftForm.value.type = 'Night'
     } else {
-      toast('Turno debe ser diurno o vespertino')
+      toast('Turno debe ser diurno o vespertino', 3000)
       throw Error('Error en tipo de turno')
     }
-    console.log(this.createShiftForm.value.type,this.createShiftForm.value.start,this.createShiftForm.value.finish, this.createShiftForm.value.date, this.createShiftForm.value.shift_place, this.guards)
+    this.guardsSelected = this.guardsSelected.filter((value, index) => this.guardsSelected.indexOf(value) === index)
+    new Promise(async (resolve, reject) => {
+      for await (const guardChip of this.guardsSelected) {
+        if(this.guardsNames.includes(guardChip)){
+          for await (const apiGuard of this.guards) {
+            if(guardChip == (apiGuard.firstname + ' ' + apiGuard.lastname)) {
+              this.guardsIds.push(apiGuard.id)
+              break
+            }
+          }
+        } else {
+          toast(`El guardia ${guardChip} no existe`, 3000)
+          reject(`guardias que no existen seleccionados`)
+        }
+      }
+      resolve()
+    })
+    .then(() => {
+      this.createShiftForm.value.guards = this.guardsIds;
+      console.log(this.createShiftForm.value);
+    })
+    .catch(err => {
+      console.log({err});
+    })
   }
 
   // confirm new password validator
@@ -71,7 +105,7 @@ export class CreateShiftComponent implements OnInit {
       this.typeWrong = true;
     }
   }
-  
+
   // getting the form control elements
   get type(): AbstractControl {
     return this.createShiftForm.controls['type'];
@@ -82,22 +116,8 @@ export class CreateShiftComponent implements OnInit {
   }
 
   add(chip) {
-    for(let guard of this.guards.guards) {
-      console.log(guard, guard.firstname + " " + guard.lastname, chip.tag);
-      let name = String(guard.firstname.concat(" ").concat(guard.laststname));
-      console.log(name == String(chip.tag));
-      if( name == String(chip.tag)){ console.log(chip.tag) } else { console.error("Error");
-      }
-    }
-    
     // aqui igualar el chip.tag a la variable q guarda el dato del formulario
-  }
-
-  delete(chip) {
-    console.log("Chip deleted: " + chip.tag);
-  }
-
-  select(chip) {
-    console.log("Chip selected: " + chip.tag);
+    console.log(chip.tag);
+    this.guardsSelected.push(chip.tag)
   }
 }

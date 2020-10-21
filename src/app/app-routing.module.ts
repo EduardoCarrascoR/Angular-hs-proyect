@@ -12,8 +12,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
 
 
 export const AppRoutes: Routes = [
-  // { path: 'dashboard', component: DashboardComponent, canActivate: [AuthenticatedGuard], canActivateChild: [AuthenticatedGuard], children: [
-  { path: 'dashboard', component: DashboardComponent, children: [
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthenticatedGuard], canActivateChild: [AuthenticatedGuard], children: [
+  // { path: 'dashboard', component: DashboardComponent, children: [
     { path: 'home', component: HomeComponent },
     { path: 'guards', component: GuardsComponent },
     { path: 'createGuard', component: CreateGuardComponent },
