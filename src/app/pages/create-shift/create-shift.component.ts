@@ -1,10 +1,11 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { toast } from 'angular2-materialize';
 import { Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { MaterializeAction } from "angular2-materialize";
 import { User } from 'src/app/models/user.interface';
+import { DatePickerComponent } from 'ng2-date-picker';
 
 @Component({
   selector: 'app-create-shift',
@@ -12,11 +13,15 @@ import { User } from 'src/app/models/user.interface';
   styleUrls: ['./create-shift.component.css']
 })
 export class CreateShiftComponent implements OnInit {
-
-
+    
+  datePickerConfig = {
+    allowMultiSelect : true,
+    format: "YYYY-MM-DD"
+  }
   guardsSelected: string[] = []
   guardsIds: number[] = []
   guardsNames: string[] = []
+  dateSelected: string[] = []
   chipsActions = new EventEmitter<string | MaterializeAction>();
   autocompleteInit = {
     autocompleteOptions: {
@@ -111,9 +116,6 @@ export class CreateShiftComponent implements OnInit {
     return this.createShiftForm.controls['type'];
   }
 
-  datepicker(e) {
-    e.preventDefault()
-  }
 
   add(chip) {
     // aqui igualar el chip.tag a la variable q guarda el dato del formulario

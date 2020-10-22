@@ -20,6 +20,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { LoadingPipe } from './pipes/loading.pipe';
 import { AuthInterceptor } from './interceptors/auth/auth.interceptor';
 import { MaterializeModule } from 'angular2-materialize';
+import {DpDatePickerModule} from 'ng2-date-picker'
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { MaterializeModule } from 'angular2-materialize';
     ReactiveFormsModule,
     BrowserModule,
     MaterializeModule,
+    DpDatePickerModule,
     RouterModule.forRoot(AppRoutes, { useHash: true, scrollPositionRestoration: 'enabled' })
   ],
   providers: [
