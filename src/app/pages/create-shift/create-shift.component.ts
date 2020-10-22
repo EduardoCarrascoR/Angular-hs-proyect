@@ -6,6 +6,8 @@ import { ApiService } from 'src/app/services/api.service';
 import { MaterializeAction } from "angular2-materialize";
 import { User } from 'src/app/models/user.interface';
 import * as moment from 'moment';
+import { Router } from '@angular/router';
+import { Client } from 'src/app/models/client.interface';
 
 @Component({
   selector: 'app-create-shift',
@@ -40,8 +42,10 @@ export class CreateShiftComponent implements OnInit {
   // types: Observable<any>
   public typeWrong = null;
   guards: User[] = []
+  clients: Client[] = []
 
   constructor(
+    private router: Router,
     public formBuilder: FormBuilder,
     private api: ApiService
   ) { }
@@ -55,6 +59,12 @@ export class CreateShiftComponent implements OnInit {
         this.autocompleteInit.autocompleteOptions.data[guard.firstname + ' ' + guard.lastname] = null
       })
     });
+    this.api.getClients().subscribe((clients: any) => {
+      this.clients = clients.clients;
+      console.log(this.clients)
+  
+    });
+    
   }
 
   private createCreateShiftForm() {
@@ -62,14 +72,14 @@ export class CreateShiftComponent implements OnInit {
       type: ['', Validators.required],
       start: ['', Validators.required],
       finish: ['', Validators.required],
-      date: ['', Validators.required],
-      shift_place: ['', Validators.required],
-      guards: ['', Validators.required],
+      dates: ['', Validators.required],
+      shiftPlace: ['', Validators.required],
+      client: ['', Validators.required],
+      guardsIds: ['', Validators.required],
     })
   }
 
   getDate(date) {
-    console.log('form:', this.createShiftForm.value.date)
     // console.log('event:', date.date)
   }
 
@@ -99,13 +109,25 @@ export class CreateShiftComponent implements OnInit {
       }
       resolve()
     })
-    .then(() => {
-      this.createShiftForm.value.date = this.createShiftForm.value.date.map(date => date.format('DD-MM-YYYY'))
-      this.createShiftForm.value.guards = this.guardsIds;
-      console.log(this.createShiftForm.value);
-    })
     .then(async () => {
-      await this.api.createShift(this.createShiftForm.value)
+      this.createShiftForm.value.dates = await this.createShiftForm.value.dates.map(date => date.format('YYYY-MM-DD'))
+      this.createShiftForm.value.guardsIds = await this.guardsIds;
+      await console.log(this.createShiftForm.value);
+      let type = this.createShiftForm.value.type;
+      let start = this.createShiftForm.value.start;
+      let finish = this.createShiftForm.value.start;
+      let dates = this.createShiftForm.value.dates;
+      let shiftPlace = this.createShiftForm.value.shiftPlace;
+      let guardsIds = this.createShiftForm.value.guardsIds;
+      await this.api.createShift(type, start, finish, dates, shiftPlace, guardsIds).toPromise()
+      .then((res: any) => {
+        console.log(res);
+        toast('Turno creado correctamente', 3000)
+        /* this.router.navigate(['/dashboard/guards']) */
+      })
+      .catch(err => {
+        toast('Error al crear turno', 3000)
+      })
     })
     .catch(err => {
       console.log({err});
@@ -131,7 +153,11 @@ export class CreateShiftComponent implements OnInit {
 
   add(chip) {
     // aqui igualar el chip.tag a la variable q guarda el dato del formulario
-    console.log(chip.tag);
     this.guardsSelected.push(chip.tag)
   }
+  async saveCode(e) {
+    let name = await e.target.value;
+    let list = await this.clients.map(x => {if(x.name === name) return x.id})[0];
+    await console.log(list);
+    }
 }
