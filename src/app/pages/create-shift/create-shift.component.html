@@ -42,9 +42,8 @@
     </div> -->
     <div class="input-field col s12 ">
       <h6 class="move-lavel hs-text-color" for="icon_prefix ">Fecha</h6> 
-      <i class="material-icons prefix hs-text-color">today</i> <br> 
-      <dp-date-picker  mode="day" [config]="datePickerConfig" formControlName="date" required class="validate"></dp-date-picker> 
-       
+      <i class="material-icons prefix hs-text-color">today</i>
+      <dp-date-picker mode="day" [config]="datePickerConfig" (onSelect)="getDate($event)" formControlName="date" required class="validate col s11 right no-padding"></dp-date-picker>  
     </div>
     <div class="input-field col s12">
       <i class="material-icons prefix hs-text-color">location_on</i>

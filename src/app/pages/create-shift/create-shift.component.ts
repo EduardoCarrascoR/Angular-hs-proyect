@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { MaterializeAction } from "angular2-materialize";
 import { User } from 'src/app/models/user.interface';
-import { DatePickerComponent } from 'ng2-date-picker';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-create-shift',
@@ -14,9 +14,12 @@ import { DatePickerComponent } from 'ng2-date-picker';
 })
 export class CreateShiftComponent implements OnInit {
     
+  selectedDate
   datePickerConfig = {
+    firstDayOfWeek: 'mo',
     allowMultiSelect : true,
-    format: "YYYY-MM-DD"
+    format: "YYYY-MM-DD",
+    returnedValueType: 'string'
   }
   guardsSelected: string[] = []
   guardsIds: number[] = []
@@ -65,6 +68,11 @@ export class CreateShiftComponent implements OnInit {
     })
   }
 
+  getDate(date) {
+    console.log('form:', this.createShiftForm.value.date)
+    // console.log('event:', date.date)
+  }
+
   addShift() {
     if (this.createShiftForm.value.type === 'diurno') {
       this.createShiftForm.value.type = 'Day'
@@ -92,8 +100,12 @@ export class CreateShiftComponent implements OnInit {
       resolve()
     })
     .then(() => {
+      this.createShiftForm.value.date = this.createShiftForm.value.date.map(date => date.format('DD-MM-YYYY'))
       this.createShiftForm.value.guards = this.guardsIds;
       console.log(this.createShiftForm.value);
+    })
+    .then(async () => {
+      await this.api.createShift(this.createShiftForm.value)
     })
     .catch(err => {
       console.log({err});
