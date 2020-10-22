@@ -15,14 +15,15 @@ import { Client } from 'src/app/models/client.interface';
   styleUrls: ['./create-shift.component.css']
 })
 export class CreateShiftComponent implements OnInit {
-    
+
   selectedDate
   datePickerConfig = {
     firstDayOfWeek: 'mo',
-    allowMultiSelect : true,
+    allowMultiSelect: true,
     format: "YYYY-MM-DD",
     returnedValueType: 'string'
   }
+  chips = []
   guardsSelected: string[] = []
   guardsIds: number[] = []
   guardsNames: string[] = []
@@ -61,10 +62,9 @@ export class CreateShiftComponent implements OnInit {
     });
     this.api.getClients().subscribe((clients: any) => {
       this.clients = clients.clients;
-      console.log(this.clients)
-  
+      console.log('clientes:', this.clients)
     });
-    
+
   }
 
   private createCreateShiftForm() {
@@ -95,9 +95,9 @@ export class CreateShiftComponent implements OnInit {
     this.guardsSelected = this.guardsSelected.filter((value, index) => this.guardsSelected.indexOf(value) === index)
     new Promise(async (resolve, reject) => {
       for await (const guardChip of this.guardsSelected) {
-        if(this.guardsNames.includes(guardChip)){
+        if (this.guardsNames.includes(guardChip)) {
           for await (const apiGuard of this.guards) {
-            if(guardChip == (apiGuard.firstname + ' ' + apiGuard.lastname)) {
+            if (guardChip == (apiGuard.firstname + ' ' + apiGuard.lastname)) {
               this.guardsIds.push(apiGuard.id)
               break
             }
@@ -109,29 +109,34 @@ export class CreateShiftComponent implements OnInit {
       }
       resolve()
     })
-    .then(async () => {
-      this.createShiftForm.value.dates = await this.createShiftForm.value.dates.map(date => date.format('YYYY-MM-DD'))
-      this.createShiftForm.value.guardsIds = await this.guardsIds;
-      await console.log(this.createShiftForm.value);
-      let type = this.createShiftForm.value.type;
-      let start = this.createShiftForm.value.start;
-      let finish = this.createShiftForm.value.start;
-      let dates = this.createShiftForm.value.dates;
-      let shiftPlace = this.createShiftForm.value.shiftPlace;
-      let guardsIds = this.createShiftForm.value.guardsIds;
-      await this.api.createShift(type, start, finish, dates, shiftPlace, guardsIds).toPromise()
-      .then((res: any) => {
-        console.log(res);
-        toast('Turno creado correctamente', 3000)
-        /* this.router.navigate(['/dashboard/guards']) */
+      .then(async () => {
+        for await (const client of this.clients) {
+          if (this.createShiftForm.value.client == client.name) {
+            this.createShiftForm.value.client = client.clientId
+            break
+          }
+        }
+        if (typeof this.createShiftForm.value.client !== 'number') {
+          toast('Cliente no existe', 3000)
+          throw new Error('Cliente no existe')
+        }
+      })
+      .then(async () => {
+        this.createShiftForm.value.dates = await this.createShiftForm.value.dates.map(date => date.format('YYYY-MM-DD'))
+        this.createShiftForm.value.guardsIds = this.guardsIds;
+        this.api.createShift(this.createShiftForm.value).toPromise()
+          .then(() => {
+            toast('Turno creado correctamente', 3000)
+            this.createShiftForm.reset()
+            this.deleteChips()
+          })
+          .catch(err => {
+            toast('Error al crear turno', 3000)
+          })
       })
       .catch(err => {
-        toast('Error al crear turno', 3000)
+        console.log(err);
       })
-    })
-    .catch(err => {
-      console.log({err});
-    })
   }
 
   // confirm new password validator
@@ -150,14 +155,17 @@ export class CreateShiftComponent implements OnInit {
     return this.createShiftForm.controls['type'];
   }
 
-
   add(chip) {
     // aqui igualar el chip.tag a la variable q guarda el dato del formulario
     this.guardsSelected.push(chip.tag)
   }
-  async saveCode(e) {
-    let name = await e.target.value;
-    let list = await this.clients.map(x => {if(x.name === name) return x.id})[0];
-    await console.log(list);
+
+  deleteChips() {
+    console.log('borrando chips');
+    const newChipsInit = {
+      data: [],
     }
+    this.chipsActions.emit({ action: "material_chip", params: [newChipsInit] });
+  }
+
 }

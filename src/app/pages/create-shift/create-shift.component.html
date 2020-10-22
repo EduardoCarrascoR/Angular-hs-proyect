@@ -15,7 +15,7 @@
     <div class="input field col s12 content-input">
       <h6 class="move-lavel hs-text-color " for="icon_prefix">Guardias</h6>
       <i class="material-icons prefix hs-text-color absolute">assignment_ind</i>
-      <div class="chips" (chip.add)="add($event.detail)" materialize="material_chip" [materializeParams]="[autocompleteInit]"></div>
+      <div class="chips" (chip.add)="add($event.detail)" materialize="material_chip" [materializeParams]="[autocompleteInit]" [materializeActions]="chipsActions"></div>
     </div>
     <div class="input-field col s12 content-input">
       <h6 class="move-lavel hs-text-color " for="icon_prefix">Inicio</h6>
@@ -39,8 +39,8 @@
     </div>
     <div class="input-field col s12">
       <i class="material-icons prefix hs-text-color">assignment_ind</i>
-      <input formControlName="client" list="clients" type="text" required class="validate" (change)="saveCode($event)">
-      <label for="icon_prefix hs-text-color">Tipo</label>
+      <input formControlName="client" list="clients" type="text" required class="validate">
+      <label for="icon_prefix hs-text-color">Cliente</label>
       <datalist id="clients" >
         <option *ngFor="let client of clients" [value]="client.name"></option>
       </datalist>
@@ -48,6 +48,5 @@
     <div class="col s12">
       <button type="submit" class="hoverable btn col s12 waves-effect waves-light hs-color" value="Entrar"><strong class="white-text">Crear</strong></button>
     </div>
-    
   </form>
 </div>

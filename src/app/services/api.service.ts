@@ -21,8 +21,8 @@ export class ApiService {
     return this.http.post<User>(this.url + '/auth/login', { rut, password })
   }
 
-  createShift(type: string, start: string, finish: string, dates: string[], shiftPlace: string, guardsIds: number[]): Observable<Shift> {
-    return this.http.post<Shift>(this.url + '/shifts', { type, start, finish, dates, shiftPlace, guardsIds })
+  createShift(newShift: Shift): Observable<Shift> {
+    return this.http.post<Shift>(this.url + '/shifts', newShift)
   }
 
   getGuards(): Observable<User> {
