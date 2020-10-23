@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment'
 import { Observable } from 'rxjs';
 import { User } from "../models/user.interface";
 import { Client } from "../models/client.interface";
+import { Shift } from '../models/shift.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,10 @@ export class ApiService {
 
   login(rut: string, password: string): Observable<User> {
     return this.http.post<User>(this.url + '/auth/login', { rut, password })
+  }
+
+  createShift(newShift: Shift): Observable<Shift> {
+    return this.http.post<Shift>(this.url + '/shifts', newShift)
   }
 
   getGuards(): Observable<User> {

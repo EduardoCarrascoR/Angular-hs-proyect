@@ -5,21 +5,17 @@
     </div>
     <div class="input-field col s12">
       <i class="material-icons prefix hs-text-color">assignment_ind</i>
-      <input formControlName="type" list="types" type="text" required class="validate" (keyup)="checkType()"
-        [ngClass]="{ invalid: typeWrong, validate: !typeWrong }">
+      <input formControlName="type" list="types" type="text" required class="validate" (keyup)="checkType()" [ngClass]="{ invalid: typeWrong, validate: !typeWrong }">
       <label for="icon_prefix hs-text-color">Tipo</label>
       <datalist id="types">
         <option>diurno</option>
         <option>vespertino</option>
       </datalist>
     </div>
-    <div class="input-field col s12 content-input">
+    <div class="input field col s12 content-input">
       <h6 class="move-lavel hs-text-color " for="icon_prefix">Guardias</h6>
-      <i class="material-icons prefix hs-text-color">assignment_ind</i>
-      <input formControlName="start" list="guards" type="text" required class="validate">
-      <datalist id="guards" *ngIf="guards$ | async as guards">
-        <option *ngFor="let guard of guards.guards">{{ guard.firstname + ' ' + guard.lastname}}</option>
-      </datalist>
+      <i class="material-icons prefix hs-text-color absolute">assignment_ind</i>
+      <div class="chips" (chip.add)="add($event.detail)" materialize="material_chip" [materializeParams]="[autocompleteInit]" [materializeActions]="chipsActions"></div>
     </div>
     <div class="input-field col s12 content-input">
       <h6 class="move-lavel hs-text-color " for="icon_prefix">Inicio</h6>
@@ -31,19 +27,26 @@
       <i class="material-icons prefix hs-text-color">access_time</i>
       <input formControlName="finish" type="time" required class="validate">
     </div>
-    <div class="input-field col s12 content-input">
-      <h6 class="move-lavel hs-text-color" for="icon_prefix ">Fecha</h6>
+    <div class="input-field col s12 ">
+      <h6 class="move-lavel hs-text-color" for="icon_prefix ">Fecha</h6> 
       <i class="material-icons prefix hs-text-color">today</i>
-      <input formControlName="date" type="date" required class="validate">
+      <dp-date-picker mode="day" [config]="datePickerConfig" (onSelect)="getDate($event)" formControlName="dates" required class="validate col s11 right no-padding"></dp-date-picker>  
     </div>
     <div class="input-field col s12">
       <i class="material-icons prefix hs-text-color">location_on</i>
-      <input formControlName="shift_place" type="text" required class="validate">
+      <input formControlName="shiftPlace" type="text" required class="validate">
       <label for="icon_prefix">Dirección</label>
     </div>
+    <div class="input-field col s12">
+      <i class="material-icons prefix hs-text-color">assignment_ind</i>
+      <input formControlName="client" list="clients" type="text" required class="validate">
+      <label for="icon_prefix hs-text-color">Cliente</label>
+      <datalist id="clients" >
+        <option *ngFor="let client of clients" [value]="client.name"></option>
+      </datalist>
+    </div>
     <div class="col s12">
-      <button type="submit" class="hoverable btn col s12 waves-effect waves-light hs-color" value="Entrar"><strong
-          class="white-text">Crear</strong></button>
+      <button type="submit" class="hoverable btn col s12 waves-effect waves-light hs-color" value="Entrar"><strong class="white-text">Crear</strong></button>
     </div>
   </form>
 </div>

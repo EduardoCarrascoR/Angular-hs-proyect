@@ -4,7 +4,9 @@ export interface Shift {
     type: string;
     start: string;
     finish: string;
-    date: string;
-    shift_place: string;
-  
+    dates: string[];
+    shiftPlace: string;
+    guardsIds: number[];
+    client: number;
+
 }
