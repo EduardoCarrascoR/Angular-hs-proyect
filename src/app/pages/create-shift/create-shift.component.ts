@@ -62,7 +62,6 @@ export class CreateShiftComponent implements OnInit {
     });
     this.api.getClients().subscribe((clients: any) => {
       this.clients = clients.clients;
-      console.log('clientes:', this.clients)
     });
 
   }
