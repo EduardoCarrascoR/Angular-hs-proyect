@@ -10,7 +10,6 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class GuardsComponent implements OnInit {
 
-  // guards: User[];
   guards$: Observable<any>
 
   constructor(

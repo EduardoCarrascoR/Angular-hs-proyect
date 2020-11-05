@@ -4,7 +4,7 @@ import { environment } from '../../environments/environment'
 import { Observable } from 'rxjs';
 import { User } from "../models/user.interface";
 import { Client } from "../models/client.interface";
-import { Shift } from '../models/shift.interface';
+import { Shift, ShiftPages } from '../models/shift.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +31,10 @@ export class ApiService {
 
   getClients(): Observable<Client> {
     return this.http.get<Client>(this.url + '/clients/all')
+  }
+
+  getShifts(page: number, limit: number): Observable<Shift> {
+    return this.http.post<Shift>(this.url + '/shifts/pagiShift', { page, limit })
   }
 
   postClient(name: string, address: string, phone: string, email: string): Observable<Client> {
