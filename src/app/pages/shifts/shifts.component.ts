@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
-import { ShiftPages } from '../../models/shift.interface'
+import { ShiftPages } from '../../models/shift.interface';
+import { MaterializeAction } from 'angular2-materialize'
 
 @Component({
   selector: 'app-shifts',
@@ -14,6 +15,8 @@ export class ShiftsComponent implements OnInit {
 
   $shifts: Observable<any>;
   shiftsForm: FormGroup;
+  
+  modalActions = new EventEmitter<string|MaterializeAction>();
   
   constructor(
     private router: Router,
@@ -28,7 +31,6 @@ export class ShiftsComponent implements OnInit {
       limit: 10
     } 
     this.$shifts = this.api.getShifts( pagination.page, pagination.limit )
-    console.log(this.$shifts)
   }
 
   private updateShiftsForm() {
@@ -40,6 +42,14 @@ export class ShiftsComponent implements OnInit {
 
   addUpdateShift() {
 
+  }
+
+  
+  openModal() {
+    this.modalActions.emit({action:"modal",params:['open']});
+  }
+  closeModal() {
+    this.modalActions.emit({action:"modal",params:['close']});
   }
 
 }
