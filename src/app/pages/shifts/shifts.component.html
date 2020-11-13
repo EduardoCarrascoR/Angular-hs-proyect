@@ -45,14 +45,15 @@
               
                 <tbody>
                   <tr *ngFor="let shift of shiftsData.value.shifts" >
+                    <p>{{ shift | json }}</p>
                     <td *ngIf="shift.type === 'Day'">Día</td>
                     <td *ngIf="shift.type === 'Night'">Noche</td>
                     <td>{{(shift.start || '')}}</td>
                     <td>{{(shift.finish || '')}}</td>
                     <td>{{(shift.shiftPlace || '')}}</td>
-                    <td>{{(shift.clientClient.name || '')}}</td>
+                    <!-- <td>{{(shift.clientClient.name || '')}}</td> -->
                     <!-- Modal Trigger -->
-                    <a class="modal-trigger btn-flat" (click)="openModal()"><i class="material-icons hs-text-color" id="icon">assignment_ind</i></a>
+                    <a class="modal-trigger btn-flat" (click)="openModal(shift)"><i class="material-icons hs-text-color" id="icon">assignment_ind</i></a>
                     
                   </tr>
                 </tbody>
@@ -118,62 +119,18 @@
 <!-- Modal Structure -->
 <div id="modal1" class="modal " materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
   <div class="modal-content">
-    <!-- <div *ngIf="$shifts | loading | async as shiftData;">
-
-      guards data
-      <ng-template [ngIf]="shiftData.value">
-        <div *ngFor="let guard of shiftData.value.shifts.guards" class="col m4">
-          <div class="card">
-            <div class="card-image center">
-              <i class="material-icons prefix hs-text-color imagefont">assignment_ind</i>
-            </div>
-            <div class="card-content">
-              <h6>Nombre: {{(guard.firstname || '') + ' ' + (guard.lastname || '')}}</h6>
-              <h6>Rut: {{ guard.rut }}</h6>
-              <h6>Email: {{ guard.email }}</h6>
-            </div>
-          </div>
+    <div *ngFor="let guard of shiftSelected" class="col m4">
+      <div class="card">
+        <div class="card-image center">
+          <i class="material-icons prefix hs-text-color imagefont">assignment_ind</i>
         </div>
-      </ng-template>
-  
-      error for get guards data
-      <ng-template [ngIf]="shiftData.error">
-        <div class="col l6 offset-l3 center">
-          <div class="card-panel">
-            <i class="material-icons large amber-text">sentiment_dissatisfied</i>
-            <h3>No se encuentran los guardias</h3>
-            <p>No hay ningun guardia ingresado. Se sugiere que ingrese alguno.</p>
-          </div>
+        <div class="card-content">
+          <h6>Nombre: {{(guard.firstname || '') + ' ' + (guard.lastname || '')}}</h6>
+          <h6>Rut: {{ guard.rut }}</h6>
+          <h6>Email: {{ guard.email }}</h6>
         </div>
-      </ng-template>
-  
-      loading for get guards data
-      <ng-template [ngIf]="shiftData.loading">
-        <div class="row center">
-          <div class="row"></div>
-          <div class="row"></div>
-          <div class="row"></div>
-          <div class="row"></div>
-          <div class="row"></div>
-          <div class="row"></div>
-          <div class="row"></div>
-          <div class="row"></div>
-          <div class="row"></div>
-          <div class="row"></div>
-          <div class="preloader-wrapper big active">
-            <div class="spinner-layer spinner-blue-only">
-              <div class="circle-clipper left">
-                <div class="circle"></div>
-              </div><div class="gap-patch">
-                <div class="circle"></div>
-              </div><div class="circle-clipper right">
-                <div class="circle"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </ng-template>
-    </div> -->
+      </div>
+    </div>
   </div>
   <div class="modal-footer">
     <a class="modal-trigger btn-flat" (click)="closeModal()"><i class="material-icons hs-text-color">close</i></a>
