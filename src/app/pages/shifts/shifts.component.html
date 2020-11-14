@@ -45,15 +45,15 @@
               
                 <tbody>
                   <tr *ngFor="let shift of shiftsData.value.shifts" >
-                    <p>{{ shift | json }}</p>
+                    <!-- <p>{{ shift | json }}</p> -->
                     <td *ngIf="shift.type === 'Day'">Día</td>
                     <td *ngIf="shift.type === 'Night'">Noche</td>
                     <td>{{(shift.start || '')}}</td>
                     <td>{{(shift.finish || '')}}</td>
                     <td>{{(shift.shiftPlace || '')}}</td>
-                    <!-- <td>{{(shift.clientClient.name || '')}}</td> -->
+                    <td>{{(shift.clientClient.name || '')}}</td>
                     <!-- Modal Trigger -->
-                    <a class="modal-trigger btn-flat" (click)="openModal(shift)"><i class="material-icons hs-text-color" id="icon">assignment_ind</i></a>
+                    <a class="modal-trigger btn-flat" (click)="openModal(shift.guards)"><i class="material-icons hs-text-color" id="icon">assignment_ind</i></a>
                     
                   </tr>
                 </tbody>
@@ -115,24 +115,34 @@
     </a>
 </div>
 
-
 <!-- Modal Structure -->
-<div id="modal1" class="modal " materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
+<div id="modal1" class="modal modal-fixed-footer" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
   <div class="modal-content">
-    <div *ngFor="let guard of shiftSelected" class="col m4">
-      <div class="card">
-        <div class="card-image center">
-          <i class="material-icons prefix hs-text-color imagefont">assignment_ind</i>
-        </div>
-        <div class="card-content">
-          <h6>Nombre: {{(guard.firstname || '') + ' ' + (guard.lastname || '')}}</h6>
-          <h6>Rut: {{ guard.rut }}</h6>
-          <h6>Email: {{ guard.email }}</h6>
+    <div class="row">
+      <div *ngFor="let guard of guardsShiftSelected">
+        <div class="col m6 offset-m3">
+          <div class="card horizontal hoverable">
+            <div class="card-image center ">
+              <img class="image-guard " src="../../../assets/imgs/Police Officer1_RF_RMPL-01.png">
+            </div>
+            <div class="card-stacked ">
+              <div class="card-content">
+                <div class="valign-wrapper"><i class="material-icons ">person</i>{{(guard.firstname || '') + ' ' + (guard.lastname || '')}}</div>
+                <div class="valign-wrapper"><i class="material-icons ">subtitles</i>{{ guard.rut }}</div>
+                <div class="valign-wrapper"><i class="material-icons ">local_phone</i>{{ guard.phone }}</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="modal-footer">
+  <!-- <div class="modal-footer">
     <a class="modal-trigger btn-flat" (click)="closeModal()"><i class="material-icons hs-text-color">close</i></a>
+  </div> -->
+  <div class="modal-footer">
+    <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cerrar</a>
   </div>
 </div>
+  
+  
