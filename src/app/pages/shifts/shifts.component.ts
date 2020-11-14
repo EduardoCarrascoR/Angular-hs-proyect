@@ -3,8 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
-import { ShiftPages } from '../../models/shift.interface';
+import { Shift, ShiftPages } from '../../models/shift.interface';
 import { MaterializeAction } from 'angular2-materialize'
+import { User } from 'src/app/models/user.interface';
 
 @Component({
   selector: 'app-shifts',
@@ -15,6 +16,7 @@ export class ShiftsComponent implements OnInit {
 
   $shifts: Observable<any>;
   shiftsForm: FormGroup;
+  guardsShiftSelected: User[];
   
   modalActions = new EventEmitter<string|MaterializeAction>();
   
@@ -45,10 +47,14 @@ export class ShiftsComponent implements OnInit {
   }
 
   
-  openModal() {
-    this.modalActions.emit({action:"modal",params:['open']});
+  openModal(shift: User[]) {
+    this.guardsShiftSelected = shift
+    if(this.guardsShiftSelected){
+      this.modalActions.emit({action:"modal",params:['open']});
+    }
   }
   closeModal() {
+    this.guardsShiftSelected = null;
     this.modalActions.emit({action:"modal",params:['close']});
   }
 

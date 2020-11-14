@@ -18,15 +18,15 @@
 
     <!-- guards data -->
     <ng-template [ngIf]="guardsData.value">
-      <div *ngFor="let guard of guardsData.value.guards" class="col m4">
+      <div *ngFor="let guard of guardsData.value.guards" class="col m3">
         <div class="card">
-          <div class="card-image center">
-            <i class="material-icons prefix hs-text-color imagefont">assignment_ind</i>
+          <div class="card-image center ">
+            <img class="image-guard " src="../../../assets/imgs/Police Officer1_RF_RMPL-01.png">
           </div>
           <div class="card-content">
-            <h6>Nombre: {{(guard.firstname || '') + ' ' + (guard.lastname || '')}}</h6>
-            <h6>Rut: {{ guard.rut }}</h6>
-            <h6>Email: {{ guard.email }}</h6>
+            <div class="valign-wrapper"><i class="material-icons ">person</i>{{(guard.firstname || '') + ' ' + (guard.lastname || '')}}</div>
+            <div class="valign-wrapper"><i class="material-icons ">subtitles</i>{{ guard.rut }}</div>
+            <div class="valign-wrapper"><i class="material-icons ">local_phone</i>{{ guard.phone }}</div>
           </div>
         </div>
       </div>
