@@ -21,13 +21,13 @@
       <div *ngFor="let client of clientsData.value.clients" class="col m4">
         <div class="card">
           <div class="card-image center">
-            <i class="material-icons prefix hs-text-color imagefont">assignment_ind</i>
+            <img src="../../../assets/imgs/client.png">
           </div>
           <div class="card-content">
-            <h6>Nombre: {{(client.name || '')}}</h6>
-            <h6>Recinto: {{ client.address }}</h6>
-            <h6>Phone: {{ client.phone }}</h6>
-            <h6>Email: {{ client.email }}</h6>
+            <div class="valign-wrapper"><i class="material-icons ">person</i>{{(client.name | titlecase)}}</div>
+            <div class="valign-wrapper"><i class="material-icons ">location_on</i>{{ client.address }}</div>
+            <div class="valign-wrapper"><i class="material-icons ">local_phone</i>{{ client.phone }}</div>
+            <div class="valign-wrapper"><i class="material-icons ">email</i>{{ client.email }}</div>
           </div>
         </div>
       </div>
