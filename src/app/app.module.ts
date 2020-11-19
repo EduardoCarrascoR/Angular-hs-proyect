@@ -22,6 +22,13 @@ import { AuthInterceptor } from './interceptors/auth/auth.interceptor';
 import { MaterializeModule } from 'angular2-materialize';
 import {DpDatePickerModule} from 'ng2-date-picker';
 import { ShiftsComponent } from './pages/shifts/shifts.component';
+import { WebSocketService } from './services/web-socket.service';
+import { ChatService } from './services/chat.service';
+/* import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { environment } from 'src/environments/environment';
+import { WebSocketService } from './services/web-socket.service';
+export const UrlWS: string = environment.apiUrlWebSocket;
+const config: SocketIoConfig = { url: UrlWS, options: { } }; */
 
 @NgModule({
   declarations: [
@@ -54,7 +61,8 @@ import { ShiftsComponent } from './pages/shifts/shifts.component';
       useClass: AuthInterceptor,
       multi:true,
     },
-   /*  WebSocketService, */
+    WebSocketService,
+    /* ChatService */
   ],
   bootstrap: [AppComponent]
 })
