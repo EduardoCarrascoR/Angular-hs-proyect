@@ -35,9 +35,12 @@ export class WebSocketService extends Socket {
     super({
         url: UrlWS,
         options: {
+          transports: ['websocket'],
+          path: '/socket.io',
             query: {
                 payload: cookieService.get('user')
             }
+            
         }
 
     });

@@ -6,6 +6,8 @@ export const environment = {
   production: false,
   apiUrl: 'http://localhost:3000/api',
   apiUrlWebSocket: 'ws://localhost:4001/websocket'
+  /* apiUrl: 'https://highsecurity-app.herokuapp.com/api',
+  apiUrlWebSocket: 'http://highsecurity-app.herokuapp.com/websocket' */
 
 };
 
