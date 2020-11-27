@@ -1,0 +1,27 @@
+#icon {
+    font-size: 35px !important;
+}
+
+input[type=text]:not(.browser-default).card-input {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding: 10px;
+}
+
+input[type=text]:not(.browser-default):focus:not([readonly]).card-input {
+  border-bottom: none;
+  box-shadow: none;
+}
+
+.input-field label:not(.label-icon).active.card-input {
+  transform: none;
+  visibility: hidden;
+}
+
+.input-field label.card-input {
+  transition: none;
+}
+
+.input-field{
+  margin-right: 10px !important;
+}

@@ -10,3 +10,10 @@ export interface Shift {
     client: number;
 
 }
+
+export interface ShiftPages {
+
+    page: number;
+    limit: number;
+
+}
