@@ -17,7 +17,13 @@ export class ShiftsComponent implements OnInit {
   $shifts: Observable<any>;
   shiftsForm: FormGroup;
   guardsShiftSelected: User[];
-  
+  public pages = [];
+  public actualPage: number;
+  public lastPage: number;
+  public nextPage: number;
+  public untilAux: number;
+  public limit: number;
+  public pagelimit: number;
   modalActions = new EventEmitter<string|MaterializeAction>();
   
   constructor(
@@ -28,11 +34,7 @@ export class ShiftsComponent implements OnInit {
 
   ngOnInit(): void {
     this.shiftsForm = this.updateShiftsForm()
-    let pagination: ShiftPages = {
-      page: 1,
-      limit: 10
-    } 
-    this.$shifts = this.api.getShifts( pagination.page, pagination.limit )
+    this.chargePage(1)
   }
 
   private updateShiftsForm() {
@@ -53,9 +55,61 @@ export class ShiftsComponent implements OnInit {
       this.modalActions.emit({action:"modal",params:['open']});
     }
   }
+
   closeModal() {
     this.guardsShiftSelected = null;
     this.modalActions.emit({action:"modal",params:['close']});
   }
 
+  chargePage(page: number) {
+    this.actualPage = page;
+    console.log(this.shiftsForm.value.limit)
+    if(this.shiftsForm.value.limit == "") {
+      this.limit = 10
+      console.log(this.limit)
+    } else {
+      this.limit = Number(this.shiftsForm.value.limit)
+      console.log(this.limit)
+
+    }
+
+    this.$shifts = this.api.getShifts(page, this.limit)
+    this.$shifts.subscribe((res: any) => {
+      console.log(res)
+      this.pages = [];
+      const pagesOnPagination: number = (res.pages < 4) ? res.pages : 4;
+      this.lastPage = (page == 1) ? 1 : page - 1;
+      this.nextPage = (page != res.pages) ? page + 1 : page;
+      if(res.pages < 4) this.pagelimit=res.pages
+      if(res.pages >= 4) this.pagelimit=4
+
+      switch (page) {
+        case 1:
+        case 2:
+        case 3:
+          for (let i = 0; i < pagesOnPagination; i++) {
+            this.pages.push({
+              number: i + 1,
+              state: ((i + 1) == page) ? 'active' : ''
+            });
+          }
+          break
+        default:
+          this.untilAux = (page == res.pages) ? res.pages : page + 1;
+          for (let i = page - 3; i < this.untilAux; i++) {
+            this.pages.push({
+              number: i + 1,
+              state: ((i + 1) == page) ? 'active' : ''
+            });
+          }
+          if (page == res.pages) {
+            this.pages.unshift({
+              number: page - 3,
+              state: ''
+            });
+          }
+          break
+      }
+    });
+  }
 }
