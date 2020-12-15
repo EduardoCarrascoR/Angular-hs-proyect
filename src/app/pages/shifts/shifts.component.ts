@@ -44,11 +44,6 @@ export class ShiftsComponent implements OnInit {
     })
   }
 
-  addUpdateShift() {
-
-  }
-
-  
   openModal(shift: User[]) {
     this.guardsShiftSelected = shift
     if(this.guardsShiftSelected){
