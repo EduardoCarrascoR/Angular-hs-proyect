@@ -63,19 +63,15 @@ export class ShiftsComponent implements OnInit {
 
   chargePage(page: number) {
     this.actualPage = page;
-    console.log(this.shiftsForm.value.limit)
     if(this.shiftsForm.value.limit == "") {
       this.limit = 10
-      console.log(this.limit)
     } else {
       this.limit = Number(this.shiftsForm.value.limit)
-      console.log(this.limit)
 
     }
 
     this.$shifts = this.api.getShifts(page, this.limit)
     this.$shifts.subscribe((res: any) => {
-      console.log(res)
       this.pages = [];
       const pagesOnPagination: number = (res.pages < 4) ? res.pages : 4;
       this.lastPage = (page == 1) ? 1 : page - 1;
