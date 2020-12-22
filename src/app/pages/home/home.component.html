@@ -26,8 +26,10 @@
               <thead class="hs-color">
                 <tr>
                     <th class="white-text">Tipo</th>
+                    <th class="white-text">Fecha</th>
                     <th class="white-text">Hora</th>
                     <th class="white-text">Dirección</th>
+                    <th class="white-text">Guardia</th>
                 </tr>
               </thead>
       
@@ -35,9 +37,12 @@
                 <tr *ngFor="let report of reportsData.value.reports">
                   <!-- <p>{{ shift | json }}</p> -->
                   <td>{{(report.type || '')}}</td>
+                  <td>{{(report.shiftShiftId.date || '')}}</td>
                   <td>{{(report.time || '')}}</td>
                   <td>{{(report.shiftShiftId.shiftPlace || '')}}</td>
-                
+                  <!-- Modal Trigger -->
+                  <a class="modal-trigger btn-flat" (click)="openModal(report.shiftShiftId.guards)"><i
+                    class="material-icons hs-text-color" id="icon">assignment_ind</i></a>
                 </tr>
               </tbody>
             </table>
@@ -50,7 +55,7 @@
       <div class="col l6 offset-l3 center">
         <div class="card-panel">
           <i class="material-icons large amber-text">sentiment_dissatisfied</i>
-          <h3>No se encuentran los turnos</h3>
+          <h3>No se encuentran los reportes</h3>
           <p>No hay ningun turno ingresado. Se sugiere que ingrese alguno.</p>
         </div>
       </div>
@@ -84,5 +89,47 @@
       </div>
     </ng-template>
   </div>
-  
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal modal-fixed-footer" materialize="modal" [materializeParams]="[{dismissible: false}]"
+    [materializeActions]="modalActions">
+    <nav id="modal_nav" class="row hs-color">
+      <div class="left col m8 offset-m3">
+        <ul>
+          <li class="valign-wrapper"><i class="material-icons">security</i></li>
+          <li><h5 class="rigth">Guardia</h5></li>
+        </ul>
+      </div>
+      <div >
+        <ul>
+          <li ><a href="#!" class="modal-close waves-effect waves-blue"><i class="material-icons">close</i></a></li>
+          <li></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="modal-content">
+      <div class="row">
+        <div *ngFor="let guard of guardsShiftSelected">
+          <div class="col m7 offset-m3">
+            <div class="card horizontal hoverable">
+              <div class="card-image center ">
+                <img class="image-guard " src="../../../assets/imgs/Police Officer1_RF_RMPL-01.png">
+              </div>
+              <div class="card-stacked ">
+                <div class="card-content">
+                  <div>
+                    <div class="valign-wrapper"><i
+                        class="material-icons ">person</i>{{(guard.firstname || '') + ' ' + (guard.lastname || '')}}</div>
+                    <div class="valign-wrapper"><i class="material-icons ">subtitles</i>{{ guard.rut }}</div>
+                  <div class="valign-wrapper"><i class="material-icons ">local_phone</i>{{ guard.phone }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-close waves-effect waves-blue btn-flat">Cerrar</a>
+  </div>
 </div>

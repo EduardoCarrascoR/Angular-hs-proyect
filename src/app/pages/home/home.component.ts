@@ -1,7 +1,9 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnChanges, OnInit } from '@angular/core';
+import { MaterializeAction } from 'angular2-materialize';
 import { report } from 'process';
 import { Observable } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
+import { User } from 'src/app/models/user.interface';
 import { ApiService } from 'src/app/services/api.service';
 import * as canvasJs from "../../../assets/canvasjs.min";
 
@@ -11,7 +13,10 @@ import * as canvasJs from "../../../assets/canvasjs.min";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
+  guardsShiftSelected: User[];
   $reports: Observable<any>;
+  modalActions = new EventEmitter<string|MaterializeAction>();
   datos: [{
     y: number,
     label: string
@@ -46,5 +51,17 @@ export class HomeComponent implements OnInit {
     });
       
     chart.render();
+  }
+  
+  openModal(shift: User[]) {
+    this.guardsShiftSelected = shift
+    if(this.guardsShiftSelected){
+      this.modalActions.emit({action:"modal",params:['open']});
+    }
+  }
+
+  closeModal() {
+    this.guardsShiftSelected = null;
+    this.modalActions.emit({action:"modal",params:['close']});
   }
 }
