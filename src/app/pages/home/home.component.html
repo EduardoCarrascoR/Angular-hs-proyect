@@ -36,7 +36,11 @@
               <tbody>
                 <tr *ngFor="let report of reportsData.value.reports">
                   <!-- <p>{{ shift | json }}</p> -->
-                  <td>{{(report.type || '')}}</td>
+                  <td *ngIf="report.type === 'Office2'">Oficina 2</td>
+                  <td *ngIf="report.type === 'Office1'">Oficina 1</td>
+                  <td *ngIf="report.type === 'Ambulance'">Ambulancia</td>
+                  <td *ngIf="report.type === 'Firefighter'">Bomberos</td>
+                  <td *ngIf="report.type === 'Police'">Policia</td>
                   <td>{{(report.shiftShiftId.date || '')}}</td>
                   <td>{{(report.time || '')}}</td>
                   <td>{{(report.shiftShiftId.shiftPlace || '')}}</td>
