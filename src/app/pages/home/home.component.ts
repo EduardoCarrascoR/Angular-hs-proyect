@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
 import { ApiService } from 'src/app/services/api.service';
 import * as canvasJs from "../../../assets/canvasjs.min";
+import { Chart } from 'chart.js'
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,7 @@ import * as canvasJs from "../../../assets/canvasjs.min";
 })
 export class HomeComponent implements OnInit {
   $reports: Observable<any>;
+  chart;
   datos: [{
     y: number,
     label: string
@@ -21,30 +23,54 @@ export class HomeComponent implements OnInit {
     private api: ApiService
   ) { }
 
-  ngOnInit(): void {
-    this.$reports = this.api.getReports()
-    this.$reports.subscribe((res:any) => {
-      this.datos = res.types
-      this.updatePieChar(this.datos)
+  canvas() {
+    this.$reports = this.api.getReports();
+    this.$reports.subscribe(data => {
+      const qty = data.types.map(res => res.y);
+      const label = data.types.map(res => res.label);
+      console.log(qty);
+      console.log(label);
+
+      this.chart = new Chart('canvas', {
+        type: 'pie',
+        data: {
+          labels: label,
+          datasets: [{
+            data: qty,
+            backgroundColor: [
+              'red', 'blue', 'yellow', 'green', 'orange',
+            ],
+          }]
+        },
+        options: {
+          responsive: true,
+          title: {
+            display: true,
+            text: 'Reporte'
+          }
+        }
+      })
     })
   }
 
-  updatePieChar(data) {
-    let chart = new canvasJs.Chart("chartContainer", {
-      theme: "light2",
-      animationEnabled: true,
-      exportEnabled: true,
-      title: {
-        text: "Reportes mesuales"
-      },
-      data: [{
-        type: "pie",
-        showInLegend: true,
-        toolTipContent: "<b>{label}</b>: {y} (#percent%)",
-        dataPoints: data
-      }]
-    });
-      
-    chart.render();
+  ngOnInit(): void {
+    this.canvas()
+  }
+
+  actualizar() {
+    this.chart.destroy();
+    this.canvas()
   }
 }
+
+function simulateClick() {
+  var event = new MouseEvent('click', {
+    'view': window,
+    'bubbles': true,
+    'cancelable': true
+  });
+  var cb = document.getElementById('btn1');
+  var canceled = !cb.dispatchEvent(event);
+}
+
+setInterval(simulateClick, 3600000);
