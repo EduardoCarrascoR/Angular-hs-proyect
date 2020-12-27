@@ -32,9 +32,20 @@ export class HomeComponent implements OnInit {
     this.$reports = this.api.getReports();
     this.$reports.subscribe(data => {
       const qty = data.types.map(res => res.y);
-      const label = data.types.map(res => res.label);
-      console.log(qty);
-      console.log(label);
+      const label = data.types.map(res => {
+        switch (res.label) {
+          case 'Police':
+            return 'Policia'
+          case 'Firefighter':
+            return 'Bombero'
+          case 'Ambulance':
+            return 'Ambulancia'
+          case 'Office1':
+            return 'Oficina 1'
+          case 'Office2':
+            return 'Oficina 2'
+        }
+      });
 
       this.chart = new Chart('canvas', {
         type: 'pie',
