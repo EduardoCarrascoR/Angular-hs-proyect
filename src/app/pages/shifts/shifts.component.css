@@ -1,7 +1,3 @@
-#icon {
-    font-size: 35px !important;
-}
-
 input[type=text]:not(.browser-default).card-input {
   border-bottom: none;
   margin-bottom: 0;
