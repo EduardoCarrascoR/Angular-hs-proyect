@@ -45,6 +45,7 @@
 
 .no-padding-right {
   padding-right: 0 !important;
+  text-size-adjust: 10px !important;
 }
 
 .card-content div.valign-wrapper i.material-icons {
