@@ -21,7 +21,8 @@ import { LoadingPipe } from './pipes/loading.pipe';
 import { AuthInterceptor } from './interceptors/auth/auth.interceptor';
 import { MaterializeModule } from 'angular2-materialize';
 import {DpDatePickerModule} from 'ng2-date-picker';
-import { ShiftsComponent } from './pages/shifts/shifts.component'
+import { ShiftsComponent } from './pages/shifts/shifts.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { ShiftsComponent } from './pages/shifts/shifts.component'
     BrowserModule,
     MaterializeModule,
     DpDatePickerModule,
-    RouterModule.forRoot(AppRoutes, { useHash: true, scrollPositionRestoration: 'enabled' })
+    RouterModule.forRoot(AppRoutes, { useHash: true, scrollPositionRestoration: 'enabled' }),
+    FormsModule
   ],
   providers: [
     {

@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col m12">
-    <h3 class="hs-text-color">Clients</h3>
+    <h3 class="hs-text-color">Clientes</h3>
   </div>
   <div class="row">
     <div class="col m4">
@@ -28,6 +28,10 @@
             <div class="valign-wrapper"><i class="material-icons ">location_on</i>{{ client.address }}</div>
             <div class="valign-wrapper"><i class="material-icons ">local_phone</i>{{ client.phone }}</div>
             <div class="valign-wrapper"><i class="material-icons ">email</i>{{ client.email }}</div>
+            <div class="row"></div>
+            <div class="row center no-margin">
+              <button class="btn hs-color col s12" (click)="openModal(client)">Ver Reportes</button>
+            </div>
           </div>
         </div>
       </div>
@@ -59,9 +63,11 @@
           <div class="spinner-layer spinner-blue-only">
             <div class="circle-clipper left">
               <div class="circle"></div>
-            </div><div class="gap-patch">
+            </div>
+            <div class="gap-patch">
               <div class="circle"></div>
-            </div><div class="circle-clipper right">
+            </div>
+            <div class="circle-clipper right">
               <div class="circle"></div>
             </div>
           </div>
@@ -71,7 +77,112 @@
   </div>
 </div>
 <div class="fixed-action-btn">
-  <a class="btn-floating btn-large tooltipped hs-color" materialize="tooltip" routerLink="/dashboard/createClient" data-position="left" data-delay="50" data-tooltip="Crear cliente">
+  <a class="btn-floating btn-large tooltipped hs-color" materialize="tooltip" routerLink="/dashboard/createClient"
+    data-position="left" data-delay="50" data-tooltip="Crear cliente">
     <i class="large material-icons">add</i>
   </a>
+</div>
+
+<!-- Modal Structure -->
+<div id="modalClientReports" class="modal modal-fixed-footer" materialize="modal"
+  [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
+  <nav id="modal_nav" class="row hs-color">
+    <div class="left col m8 offset-m3">
+      <ul>
+        <li><div class="valign-wrapper"><i class="material-icons">assignment</i> <h5>{{ clientSelected?.name | titlecase }} Reportes</h5></div></li>
+      </ul>
+    </div>
+    <div >
+      <ul>
+        <li ><a href="#!" class="modal-close waves-effect waves-blue"><i class="material-icons">close</i></a></li>
+        <li></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="modal-content">
+    <div class="row">
+      <div class="col s9">
+       
+      </div>
+      <div class="input-field col s3">
+        <input [(ngModel)]="dateSelected" name="dateSelected"
+          (change)="getReportsByClientIdAndDate(clientSelected.clientId)" type="date" [max]="today">
+        <label class="active" for="dateSelected">Fecha</label>
+      </div>
+    </div>
+    <div *ngIf="$reports | loading | async as reportsData">
+
+      <!-- loading reports -->
+      <ng-template [ngIf]="reportsData.loading">
+        <div class="row center">
+          <div class="row"></div>
+          <div class="row"></div>
+          <div class="row"></div>
+          <div class="row"></div>
+          <div class="row"></div>
+          <div class="row"></div>
+          <div class="row"></div>
+          <div class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-blue-only">
+              <div class="circle-clipper left">
+                <div class="circle"></div>
+              </div>
+              <div class="gap-patch">
+                <div class="circle"></div>
+              </div>
+              <div class="circle-clipper right">
+                <div class="circle"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+
+      <!-- client reports -->
+      <div class="card-panel no-padding">
+        <ng-template class="row" [ngIf]="reportsData.value?.reports.length > 0">
+          <table class="striped hs-color">
+            <thead>
+              <tr>
+                <th class="white-text">Guardia</th>
+                <th class="white-text">Fecha</th>
+                <th class="white-text">Hora</th>
+                <th class="white-text">Ubicación</th>
+                <th class="white-text">Tipo</th>
+              </tr>
+            </thead>
+
+            <tbody class="white">
+              <tr *ngFor="let report of reportsData.value.reports">
+                <td>{{ report.guard }}</td>
+                <td>{{ report.date | date: 'shortDate' }}</td>
+                <td>{{ ('2020-12-31:' + report.time) | date: 'shortTime' }}</td>
+                <td>{{ report.place }}</td>
+                <td>{{ report.type }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </ng-template>
+      </div>
+
+      <!-- client reports == 0 -->
+      <ng-template [ngIf]="reportsData.value?.reports.length == 0">
+        <div class="center">
+          <img class="report-error" src="../../../assets/imgs/undraw_Post_re_mtr4-orange.svg">
+          <h5>No se encontraron reportes <br> en la fecha seleccionada.</h5>
+        </div>
+      </ng-template>
+
+      <!-- erron on get reports -->
+      <ng-template class="row" [ngIf]="reportsData.error">
+        <div class="center">
+          <img class="report-error" src="../../../assets/imgs/undraw_server_down_s4lk.svg">
+          <h5>Hubo un error inesperado. <br> Intente nuevamente.</h5>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a class="waves-effect waves-green btn-flat" (click)="closeModal()">Cerrar</a>
+  </div>
 </div>

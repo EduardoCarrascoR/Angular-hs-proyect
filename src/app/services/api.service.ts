@@ -4,6 +4,7 @@ import { environment } from '../../environments/environment'
 import { Observable } from 'rxjs';
 import { User } from "../models/user.interface";
 import { Client } from "../models/client.interface";
+import { Report } from "../models/report.interface";
 import { Shift, ShiftPages } from '../models/shift.interface';
 
 @Injectable({
@@ -36,13 +37,20 @@ export class ApiService {
   getShifts(page: number, limit: number): Observable<Shift> {
     return this.http.post<Shift>(this.url + '/shifts/pagiShift', { page, limit })
   }
-
+  
   postClient(name: string, address: string, phone: string, email: string): Observable<Client> {
     return this.http.post<Client>(this.url + '/clients', { name, phone, email, address })
   }
-
+  
   postGuard(firstname: string, lastname: string, rut: string, phone: string, email: string, password: string): Observable<User> {
     return this.http.post<User>(this.url + '/users/Guard', { firstname, lastname, rut, phone, email, password })
   }
+  
+  getReports(): Observable<Report> {
+    return this.http.get<Report>(this.url + '/reports/monthReport')
+  }
 
+  getReportsByClientIdAndDate(clientId: number, date: string): Observable<any> {
+    return this.http.get<any>(this.url + `/clients/reportClient/${clientId}/date/${date}`)
+  }
 }

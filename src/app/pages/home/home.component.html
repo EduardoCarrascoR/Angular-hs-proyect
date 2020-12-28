@@ -14,71 +14,135 @@
       </nav>
     </div>
   </div>
-  <div class="col m4">
-    <div class="card medium">
-      <div class="card-image">
-        <img src="https://loremflickr.com/320/240/grafica" alt="" />
-        <span class="card-title"></span>
-      </div>
-      <div class="card-content">
-        <p>I am a very simple card. I am good at containing small bits of information.I am convenient because I require
-          little markup to use effectively.</p>
-      </div>
-    </div>
-  </div>
-  <div class="col m4">
-    <div class="card medium">
-      <div class="card-image">
-        <img src="https://loremflickr.com/320/240/grafica" alt="" />
-        <span class="card-title"></span>
-      </div>
-      <div class="card-content">
-        <p>I am a very simple card. I am good at containing small bits of information.I am convenient because I require
-          little markup to use effectively.</p>
+  <!-- ¡¡grafico aqui!! -->
+  <div class="container">
+    <div class="row">
+      <button class='btn btn-success' id='btn1' style="display:none" (click)='actualizar()'>update</button>
+      <div class="col s12">
+        <canvas id='canvas'>
+          {{chart}}
+        </canvas>
       </div>
     </div>
   </div>
-  <div class="col m4">
-    <div class="card medium">
-      <div class="card-image">
-        <img src="https://loremflickr.com/320/240/grafica" alt="" />
-        <span class="card-title"></span>
+  <div *ngIf="$reports | loading | async as reportsData;">
+    <!-- clients data -->
+    <ng-template [ngIf]="reportsData.value">
+      <div>
+        <div class="col m12">
+          <div class="card-panel no-padding">
+            <table class="striped">
+              <thead class="hs-color">
+                <tr>
+                    <th class="white-text">Tipo</th>
+                    <th class="white-text">Fecha</th>
+                    <th class="white-text">Hora</th>
+                    <th class="white-text">Dirección</th>
+                    <th class="white-text">Guardia</th>
+                </tr>
+              </thead>
+      
+              <tbody>
+                <tr *ngFor="let report of reportsData.value.reports">
+                  <!-- <p>{{ shift | json }}</p> -->
+                  <td *ngIf="report.type === 'Office2'">Oficina 2</td>
+                  <td *ngIf="report.type === 'Office1'">Oficina 1</td>
+                  <td *ngIf="report.type === 'Ambulance'">Ambulancia</td>
+                  <td *ngIf="report.type === 'Firefighter'">Bomberos</td>
+                  <td *ngIf="report.type === 'Police'">Policia</td>
+                  <td>{{(report.shiftShiftId.date || '')}}</td>
+                  <td>{{(report.time || '')}}</td>
+                  <td>{{(report.shiftShiftId.shiftPlace || '')}}</td>
+                  <!-- Modal Trigger -->
+                  <a class="modal-trigger btn-flat" (click)="openModal(report.shiftShiftId.guards)"><i
+                    class="material-icons hs-text-color" id="icon">assignment_ind</i></a>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
-      <div class="card-content">
-        <p>I am a very simple card. I am good at containing small bits of information.I am convenient because I require
-          little markup to use effectively.</p>
+    </ng-template>
+    <!-- error for get clients data -->
+    <ng-template [ngIf]="reportsData.error">
+      <div class="col l6 offset-l3 center">
+        <div class="card-panel">
+          <i class="material-icons large amber-text">sentiment_dissatisfied</i>
+          <h3>No se encuentran los reportes</h3>
+          <p>No hay ningun turno ingresado. Se sugiere que ingrese alguno.</p>
+        </div>
+      </div>
+    </ng-template>
+    <!-- loading for get clients data -->
+    <ng-template [ngIf]="reportsData.loading">
+      <div class="row center">
+        <div class="row"></div>
+        <div class="row"></div>
+        <div class="row"></div>
+        <div class="row"></div>
+        <div class="row"></div>
+        <div class="row"></div>
+        <div class="row"></div>
+        <div class="row"></div>
+        <div class="row"></div>
+        <div class="row"></div>
+        <div class="preloader-wrapper big active">
+          <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+              <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal modal-fixed-footer" materialize="modal" [materializeParams]="[{dismissible: false}]"
+    [materializeActions]="modalActions">
+    <nav id="modal_nav" class="row hs-color">
+      <div class="left col m8 offset-m3">
+        <ul>
+          <li class="valign-wrapper"><i class="material-icons">security</i></li>
+          <li><h5 class="rigth">Guardia</h5></li>
+        </ul>
+      </div>
+      <div >
+        <ul>
+          <li ><a href="#!" class="modal-close waves-effect waves-blue"><i class="material-icons">close</i></a></li>
+          <li></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="modal-content">
+      <div class="row">
+        <div *ngFor="let guard of guardsShiftSelected">
+          <div class="col m7 offset-m3">
+            <div class="card horizontal hoverable">
+              <div class="card-image center ">
+                <img class="image-guard " src="../../../assets/imgs/Police Officer1_RF_RMPL-01.png">
+              </div>
+              <div class="card-stacked ">
+                <div class="card-content">
+                  <div>
+                    <div class="valign-wrapper"><i
+                        class="material-icons ">person</i>{{(guard.firstname || '') + ' ' + (guard.lastname || '')}}</div>
+                    <div class="valign-wrapper"><i class="material-icons ">subtitles</i>{{ guard.rut }}</div>
+                  <div class="valign-wrapper"><i class="material-icons ">local_phone</i>{{ guard.phone }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <div class="col m12">
-    <div class="card-panel no-padding">
-      <table class="striped">
-        <thead class="hs-color">
-          <tr>
-              <th class="white-text">Name</th>
-              <th class="white-text">Item Name</th>
-              <th class="white-text">Item Price</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr>
-            <td>Alvin</td>
-            <td>Eclair</td>
-            <td>$0.87</td>
-          </tr>
-          <tr>
-            <td>Alan</td>
-            <td>Jellybean</td>
-            <td>$3.76</td>
-          </tr>
-          <tr>
-            <td>Jonathan</td>
-            <td>Lollipop</td>
-            <td>$7.00</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-close waves-effect waves-blue btn-flat">Cerrar</a>
   </div>
 </div>
