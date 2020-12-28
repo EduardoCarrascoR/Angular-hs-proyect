@@ -53,10 +53,11 @@
                   <td>{{(shift.shiftPlace || '')}}</td>
                   <td>{{(shift.clientClient.name || '')}}</td>
                   <!-- Modal Trigger -->
-                  <a class="modal-trigger btn-flat" (click)="openModal(shift.guards)"><i
-                      class="material-icons hs-text-color" id="icon">assignment_ind</i></a>
-                      <i
-                      class="material-icons hs-text-color" id="icon">assignment</i>
+                  <td><a class="modal-trigger btn-flat" (click)="openModal(shift.guards)" href="#modal"><i
+                    class="material-icons hs-text-color" id="icon">assignment_ind</i></a></td>
+                  <td><a class="modal-trigger btn-flat" (click)="openModal(shift.news)" href="#modal2"><i
+                    class="material-icons hs-text-color" id="icon">assignment</i></a></td>
+                  
 
                 </tr>
               </tbody>
@@ -122,37 +123,35 @@
   </a>
 </div>
 
-  <!-- Modal Structure -->
-  <div id="modal1" class="modal modal-fixed-footer" materialize="modal" [materializeParams]="[{dismissible: false}]"
-    [materializeActions]="modalActions">
-    <nav id="modal_nav" class="row hs-color">
-      <div class="left col m8 offset-m3">
-        <ul>
-          <li class="valign-wrapper"><i class="material-icons">security</i></li>
-          <li><h5 class="rigth">Guardias</h5></li>
-        </ul>
-      </div>
-      <div >
-        <ul>
-          <li ><a href="#!" class="modal-close waves-effect waves-blue"><i class="material-icons">close</i></a></li>
-          <li></li>
-        </ul>
-      </div>
-    </nav>
-    <div class="modal-content">
-      <div class="row">
-        <div *ngFor="let guard of guardsShiftSelected">
-          <div class="col m7 offset-m3">
-            <div class="card horizontal hoverable">
-              <div class="card-image center ">
+  <!-- Modal Structure Guards -->
+<div id="modal" class="modal modal-fixed-footer" materialize="modal" [materializeParams]="[{dismissible: false}]"
+  [materializeActions]="modalActions">
+  <nav id="modal_nav" class="row hs-color">
+    <div class="left col m8 offset-m3 ">
+      <ul>
+        <li><div class="valign-wrapper"><i class="material-icons">security</i><h5>Guardias</h5></div></li>
+      </ul>
+    </div>
+    <div >
+      <ul>
+        <li ><a href="#!" class="modal-close waves-effect waves-blue"><i class="material-icons">close</i></a></li>
+        <li></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="modal-content">
+    <div class="row">
+      <div *ngFor="let guard of guardsShiftSelected">
+        <div class="col m7 offset-m3">
+          <div class="card horizontal hoverable">
+            <div class="card-image center ">
                 <img class="image-guard " src="../../../assets/imgs/Police Officer1_RF_RMPL-01.png">
-              </div>
-              <div class="card-stacked ">
-                <div class="card-content">
-                  <div>
-                    <div class="valign-wrapper"><i
-                        class="material-icons ">person</i>{{(guard.firstname || '') + ' ' + (guard.lastname || '')}}</div>
-                    <div class="valign-wrapper"><i class="material-icons ">subtitles</i>{{ guard.rut }}</div>
+            </div>
+            <div class="card-stacked ">
+              <div class="card-content">
+                <div>
+                  <div class="valign-wrapper"><i class="material-icons ">person</i>{{(guard.firstname || '') + ' ' + (guard.lastname || '')}}</div>
+                  <div class="valign-wrapper"><i class="material-icons ">subtitles</i>{{ guard.rut }}</div>
                   <div class="valign-wrapper"><i class="material-icons ">local_phone</i>{{ guard.phone }}</div>
                 </div>
               </div>
@@ -166,3 +165,87 @@
     <a href="#!" class="modal-close waves-effect waves-blue btn-flat">Cerrar</a>
   </div>
 </div>
+  <!-- Modal Structure News -->
+<div id="modal2" class="modal modal-fixed-footer" materialize="modal" [materializeParams]="[{dismissible: false}]"
+[materializeActions]="modalActions">
+  <nav id="modal_nav" class="row hs-color">
+    <div class="left col m8 offset-m3">
+      <ul>
+        <li><div class="valign-wrapper"><i class="material-icons">assignment</i><h5>Novedades</h5></div></li>
+      </ul>
+    </div>
+    <div >
+      <ul>
+        <li ><a href="#!" class="modal-close waves-effect waves-blue"><i class="material-icons">close</i></a></li>
+        <li></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="modal-content">
+    <!-- <div class="row">
+      <div *ngFor="let guard of guardsShiftSelected">
+        <div class="col m7 offset-m3">
+          <div class="card horizontal hoverable">
+            <div class="card-image center ">
+                <img class="image-guard " src="../../../assets/imgs/Police Officer1_RF_RMPL-01.png">
+            </div>
+            <div class="card-stacked ">
+              <div class="card-content">
+                <div>
+                  <div class="valign-wrapper"><i class="material-icons ">person</i>{{(guard.firstname || '') + ' ' + (guard.lastname || '')}}</div>
+                  <div class="valign-wrapper"><i class="material-icons ">subtitles</i>{{ guard.rut }}</div>
+                  <div class="valign-wrapper"><i class="material-icons ">local_phone</i>{{ guard.phone }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-close waves-effect waves-blue btn-flat">Cerrar</a>
+  </div>
+</div>
+<!-- <div id="modalNews" class="modal modal-fixed-footer" materialize="modal" [materializeParams]="[{dismissible: false}]"
+  [materializeActions]="modalActions">
+  <nav id="modal_nav" class="row hs-color">
+    <div class="left col m8 offset-m3">
+      <ul>
+        <li class="valign-wrapper"><i class="material-icons">security</i></li>
+        <li><h5 class="rigth">Guardias</h5></li>
+      </ul>
+    </div>
+    <div >
+      <ul>
+        <li ><a href="#!" class="modal-close waves-effect waves-blue"><i class="material-icons">close</i></a></li>
+        <li></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="modal-content">
+    <div class="row">
+      <div *ngFor="let guard of guardsShiftSelected">
+        <div class="col m7 offset-m3">
+          <div class="card horizontal hoverable">
+            <div class="card-image center ">
+                <img class="image-guard " src="../../../assets/imgs/Police Officer1_RF_RMPL-01.png">
+            </div>
+            <div class="card-stacked ">
+              <div class="card-content">
+                <div>
+                  <div class="valign-wrapper"><i class="material-icons ">person</i>{{(guard.firstname || '') + ' ' + (guard.lastname || '')}}</div>
+                  <div class="valign-wrapper"><i class="material-icons ">subtitles</i>{{ guard.rut }}</div>
+                  <div class="valign-wrapper"><i class="material-icons ">local_phone</i>{{ guard.phone }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-close waves-effect waves-blue btn-flat">Cerrar</a>
+  </div>
+</div> -->

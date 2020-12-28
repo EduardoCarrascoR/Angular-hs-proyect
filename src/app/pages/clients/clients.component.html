@@ -86,10 +86,23 @@
 <!-- Modal Structure -->
 <div id="modalClientReports" class="modal modal-fixed-footer" materialize="modal"
   [materializeParams]="[{dismissible: false}]" [materializeActions]="modalActions">
+  <nav id="modal_nav" class="row hs-color">
+    <div class="left col m8 offset-m3">
+      <ul>
+        <li><div class="valign-wrapper"><i class="material-icons">assignment</i> <h5>{{ clientSelected?.name | titlecase }} Reportes</h5></div></li>
+      </ul>
+    </div>
+    <div >
+      <ul>
+        <li ><a href="#!" class="modal-close waves-effect waves-blue"><i class="material-icons">close</i></a></li>
+        <li></li>
+      </ul>
+    </div>
+  </nav>
   <div class="modal-content">
     <div class="row">
       <div class="col s9">
-        <h4>{{ clientSelected?.name | titlecase }} Reportes</h4>
+       
       </div>
       <div class="input-field col s3">
         <input [(ngModel)]="dateSelected" name="dateSelected"

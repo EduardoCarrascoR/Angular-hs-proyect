@@ -6,6 +6,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { Shift, ShiftPages } from '../../models/shift.interface';
 import { MaterializeAction } from 'angular2-materialize'
 import { User } from 'src/app/models/user.interface';
+import { News } from 'src/app/models/news.interface';
 
 @Component({
   selector: 'app-shifts',
@@ -17,6 +18,7 @@ export class ShiftsComponent implements OnInit {
   $shifts: Observable<any>;
   shiftsForm: FormGroup;
   guardsShiftSelected: User[];
+  newsShiftSelected: News[];
   public pages = [];
   public actualPage: number;
   public lastPage: number;
@@ -25,6 +27,7 @@ export class ShiftsComponent implements OnInit {
   public limit: number;
   public pagelimit: number;
   modalActions = new EventEmitter<string|MaterializeAction>();
+  modalNewsActions = new EventEmitter<string|MaterializeAction>();
   
   constructor(
     private router: Router,
@@ -44,17 +47,30 @@ export class ShiftsComponent implements OnInit {
     })
   }
 
-  openModal(shift: User[]) {
-    this.guardsShiftSelected = shift
+  openModal(shiftData) {
+    console.log(shiftData)
+    this.guardsShiftSelected = shiftData
     if(this.guardsShiftSelected){
       this.modalActions.emit({action:"modal",params:['open']});
     }
+    
   }
+  /* openModalNews(news) {
+    console.log(news)
+    this.newsShiftSelected = news
+    if(this.newsShiftSelected){
+      this.modalActions.emit({action:"modal2",params:['open']});
+    }
+  } */
 
   closeModal() {
     this.guardsShiftSelected = null;
     this.modalActions.emit({action:"modal",params:['close']});
   }
+  /* closeModalNews() {
+    this.guardsShiftSelected = null;
+    this.modalNewsActions.emit({action:"modal2",params:['close']});
+  } */
 
   chargePage(page: number) {
     this.actualPage = page;
