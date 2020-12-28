@@ -124,6 +124,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "high-security-dashboard"
+    }
+  },
+  "defaultProject": "high-security-dashboard",
+  "cli": {
+    "analytics": "7742c069-3f5d-43e6-99f3-d8b3b0f7c07f"
+  }
 }

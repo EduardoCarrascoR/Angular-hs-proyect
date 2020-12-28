@@ -49,4 +49,8 @@ export class ApiService {
   getReports(): Observable<Report> {
     return this.http.get<Report>(this.url + '/reports/monthReport')
   }
+
+  getReportsByClientIdAndDate(clientId: number, date: string): Observable<any> {
+    return this.http.get<any>(this.url + `/clients/reportClient/${clientId}/date/${date}`)
+  }
 }

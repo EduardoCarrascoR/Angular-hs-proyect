@@ -62,3 +62,7 @@
 #icon {
   font-size: 35px !important;
 }
+
+img.report-error {
+  height: 33vh;
+}
