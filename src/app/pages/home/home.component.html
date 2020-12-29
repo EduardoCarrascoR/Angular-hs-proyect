@@ -62,6 +62,8 @@
                     <th class="white-text">Hora</th>
                     <th class="white-text">Dirección</th>
                     <th class="white-text">Guardia</th>
+                    <th class="white-text">Rut</th>
+                    <th class="white-text">Telefono</th>
                 </tr>
               </thead>
       
@@ -73,12 +75,15 @@
                   <td *ngIf="report.type === 'Ambulance'">Ambulancia</td>
                   <td *ngIf="report.type === 'Firefighter'">Bomberos</td>
                   <td *ngIf="report.type === 'Police'">Policia</td>
-                  <td>{{(report.shiftShiftId.date || '')}}</td>
-                  <td>{{(report.time || '')}}</td>
-                  <td>{{(report.shiftShiftId.shiftPlace || '')}}</td>
-                  <!-- Modal Trigger -->
+                  <td>{{(report.date | date: 'shortDate')}}</td>
+                  <td>{{('2020-12-31:' + report.time) | date: 'shortTime'}}</td>
+                  <td>{{(report.place|| '')}}</td>
+                  <td>{{(report.guard|| '')}}</td>
+                  <td>{{(report.rut|| '')}}</td>
+                  <td>{{(report.phone|| '')}}</td>
+                  <!-- Modal Trigger
                   <a class="btn-flat" (click)="openModal(report.shiftShiftId.guards)"><i
-                    class="material-icons hs-text-color" id="icon">assignment_ind</i></a>
+                    class="material-icons hs-text-color" id="icon">assignment_ind</i></a> -->
                 </tr>
               </tbody>
             </table>
