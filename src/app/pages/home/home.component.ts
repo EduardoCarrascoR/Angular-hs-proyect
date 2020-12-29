@@ -19,6 +19,7 @@ export class HomeComponent implements OnInit {
   $reports: Observable<any>;
   modalActions = new EventEmitter<string|MaterializeAction>();
   chart;
+  loading: boolean = true;
   datos: [{
     y: number,
     label: string
@@ -29,8 +30,8 @@ export class HomeComponent implements OnInit {
   ) { }
 
   canvas() {
-    this.$reports = this.api.getReports();
-    this.$reports.subscribe(data => {
+    this.$reports.subscribe((data:any) => {
+      this.loading = false;
       const qty = data.types.map(res => res.y);
       const label = data.types.map(res => {
         switch (res.label) {
@@ -54,7 +55,7 @@ export class HomeComponent implements OnInit {
           datasets: [{
             data: qty,
             backgroundColor: [
-              'red', 'blue', 'yellow', 'green', 'orange',
+              '#b71c1c', '#00e5ff', '#ffc400', '#00796b', '#6a1b9a',
             ],
           }]
         },
@@ -70,10 +71,12 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.$reports = this.api.getReports();
     this.canvas()
   }
   
   openModal(shift: User[]) {
+    console.log(shift)
     this.guardsShiftSelected = shift
     if(this.guardsShiftSelected){
       this.modalActions.emit({action:"modal",params:['open']});

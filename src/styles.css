@@ -1,6 +1,9 @@
 .hs-color {
   background-color: #001039;
 }
+.hs-cruz-color {
+  color: #b71c1c;
+}
 
 .hs-text-color {
   color: #001039;
@@ -63,5 +66,13 @@
 }
 
 img.report-error {
-  height: 33vh;
+  height: 30vh;
+}
+
+.modal-fixed-footer{
+  overflow-y: hidden;
+}
+
+.valign-wrapper>.material-icons {
+  padding-right: 16px;
 }
