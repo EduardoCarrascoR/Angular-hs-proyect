@@ -21,3 +21,7 @@ input[type=text]:not(.browser-default):focus:not([readonly]).card-input {
 .input-field{
   margin-right: 10px !important;
 }
+
+.max-width {
+  width: 500px !important;
+}

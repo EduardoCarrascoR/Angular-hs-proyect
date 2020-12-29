@@ -63,5 +63,13 @@
 }
 
 img.report-error {
-  height: 33vh;
+  height: 30vh;
+}
+
+.modal-fixed-footer{
+  overflow-y: hidden;
+}
+
+.valign-wrapper>.material-icons {
+  padding-right: 16px;
 }

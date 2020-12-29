@@ -55,13 +55,15 @@ export class ShiftsComponent implements OnInit {
     }
     
   }
-  /* openModalNews(news) {
+  openModalNews(news) {
     console.log(news)
     this.newsShiftSelected = news
     if(this.newsShiftSelected){
-      this.modalActions.emit({action:"modal2",params:['open']});
+      this.modalNewsActions.emit({action:"modal",params:['open']});
+    } else {
+      console.log("error al abrir modal")
     }
-  } */
+  }
 
   closeModal() {
     this.guardsShiftSelected = null;
