@@ -7,8 +7,8 @@
       <nav class="hs-color">
         <div class="nav-wrapper">
           <div class="col s12">
-            <a routerLink="/dashboard/home" class="breadcrumb">Dashboard</a>
-            <a routerLink="/dashboard/shifts" class="breadcrumb">Shifts</a>
+            <a routerLink="/dashboard/home" class="breadcrumb">Inicio</a>
+            <a routerLink="/dashboard/shifts" class="breadcrumb">Turnos</a>
           </div>
         </div>
       </nav>
@@ -31,38 +31,66 @@
             <table class="striped">
               <thead class="hs-color">
                 <tr>
-                  <th class="white-text">Tipo</th>
-                  <th class="white-text">Fecha</th>
-                  <th class="white-text">Inicio</th>
-                  <th class="white-text">Termino</th>
-                  <th class="white-text">Locacion</th>
-                  <th class="white-text">Cliente</th>
-                  <th class="white-text">Guardias</th>
-                  <th class="white-text">Novedades</th>
+                  <th class="white-text min-width">Tipo</th>
+                  <th class="white-text min-width">Fecha</th>
+                  <th class="white-text max-width">Inicio</th>
+                  <th class="white-text max-width">Termino</th>
+                  <th class="white-text max-width">Locacion</th>
+                  <th class="white-text max-width">Cliente</th>
+                  <th class="white-text min-width">Guardias</th>
+                  <th class="white-text min-width">Novedades</th>
+                  <th class="white-text min-width">Visitas</th>
+                  <th class="white-text min-width">Descargar</th>
                 </tr>
               </thead>
 
               <tbody>
                 <tr *ngFor="let shift of shiftsData.value.shifts">
                   <!-- <pre>{{ shift | json }}</pre> -->
-                  <td *ngIf="shift.type === 'Day'">Día</td>
-                  <td *ngIf="shift.type === 'Night'">Noche</td>
-                  <td>{{(shift.date | date: 'shortDate' )}}</td>
-                  <td>{{('2020-12-31:' + shift.start) | date: 'shortTime'}}</td>
-                  <td>{{('2020-12-31:' + shift.finish) | date: 'shortTime'}}</td>
-                  <td>{{(shift.shiftPlace || '')}}</td>
-                  <td>{{(shift.clientClient.name || '')}}</td>
+                  <td *ngIf="shift.type === 'Day'" class="min-width">Día</td>
+                  <td *ngIf="shift.type === 'Night'" class="min-width">Noche</td>
+                  <td class="min-width">{{(shift.date | date: 'shortDate' )}}</td>
+                  <td class="max-width">{{('2020-12-31:' + shift.start) | date: 'shortTime'}}</td>
+                  <td class="max-width">{{('2020-12-31:' + shift.finish) | date: 'shortTime'}}</td>
+                  <td class="max-width">{{(shift.shiftPlace || '')}}</td>
+                  <td class="max-width">{{(shift.clientClient.name || '')}}</td>
                   <!-- Modal Trigger -->
-                  <td><a class="btn-flat" (click)="openModal(shift.guards)"><i
-                    class="material-icons hs-text-color" id="icon">assignment_ind</i></a></td>
-                  <td>
-                    <a *ngIf="shift.news.length" class="btn-flat" (click)="openModalNews(shift.news)"><i
-                    class="material-icons hs-text-color" id="icon">assignment</i></a>
-                    <a *ngIf="!shift.news.length" class="btn-flat" (click)="openModalNews(shift.news)"><i
-                      class="material-icons hs-cruz-color" id="icon">cancel</i></a>
+                  <td class="min-width">
+                    <a class="btn-flat valign-wrapper" (click)="openModal(shift.guards)">
+                      <div class="row valign-wrapper">
+                        <i class=" material-icons hs-text-color" id="icon">assignment_ind</i>
+                        <h6 class=" hs-text-color">{{(shift.news).length+1}}</h6>
+                      </div>
+                    </a>
                   </td>
-                  
-
+                  <td class="min-width ">
+                    <a *ngIf="shift.news.length" class="btn-flat" (click)="openModalNews(shift.news)">
+                      <div class="valign-wrapper">
+                        <i class="material-icons hs-text-color" id="icon">assignment</i>
+                        <h6 class="hs-text-color">{{(shift.news).length+1}}</h6>
+                      </div>
+                    </a>
+                    <a *ngIf="!shift.news.length" class="btn-flat disabled">
+                      <i class="material-icons hs-cruz-color" id="icon">cancel</i>
+                    </a>
+                  </td>
+                  <td class="min-width">
+                    <a *ngIf="shift.visits.length" class="btn-flat" (click)="openModalVisits(shift.visits)">
+                      <div class="valign-wrapper">
+                        <i class="material-icons hs-text-color" id="icon">directions_walk</i>
+                        <h6 class="hs-text-color">{{(shift.visits).length+1}}</h6>
+                      </div>
+                      
+                    </a>
+                    <a *ngIf="!shift.visits.length" class="btn-flat disabled">
+                      <i class="material-icons hs-cruz-color" id="icon">cancel</i>
+                    </a>
+                  </td>
+                  <td class="min-width">
+                    <a class="btn-flat" (click)="download()">
+                      <i class="material-icons hs-text-color" id="icon">get_app</i>
+                    </a>
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -198,6 +226,54 @@
           <!-- <pre>{{ shift | json }}</pre> -->
           <td>{{(new.title || 'Sin titulo')}}</td>
           <td class="max-width">{{(new.description || 'Sin descripción')}}</td>         
+
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+  <div class="modal-footer">
+    <a class="modal-close waves-effect waves-blue btn-flat">Cerrar</a>
+  </div>
+</div>
+  <!-- Modal Structure Visits -->
+<div id="modal3" class="modal modal-fixed-footer" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalVisitsActions">
+  <nav id="modal_nav" class="row hs-color">
+    <div class="col m11 no-margin">
+      <ul>
+        <li><div class="valign-wrapper"><i class="material-icons">directions_walk</i><h5>Visitas</h5></div></li>
+      </ul>
+    </div>
+    <div >
+      <ul>
+        <li ><a class="modal-close waves-effect waves-blue"><i class="material-icons">close</i></a></li>
+        <li></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="modal-content">
+    <!-- <pre>{{ newsShiftSelected | json }}</pre> -->
+    <table class="striped">
+      <thead class="hs-color">
+        <tr>
+          <th class="white-text">Nombre</th>
+          <!-- <th class="white-text max-width">Descripción</th> -->
+          <th class="white-text">Rut</th>
+          <th class="white-text">Patente</th>
+          <th class="white-text">Entrada</th>
+          <th class="white-text">Salida</th>
+        </tr>
+      </thead>
+
+      <tbody >
+        <tr *ngFor="let visit of visitsShiftSelected">
+          <!-- <pre>{{ shift | json }}</pre> -->
+          <td>{{(visit.name || 'Sin registrar')}}</td>
+          <!-- <td class="max-width">{{(visit.patent || 'Sin descripción')}}</td>          -->
+          <td>{{(visit.rut || 'Sin registrar')}}</td>         
+          <td>{{(visit.patent || 'Sin registrar')}}</td>         
+          <td>{{(visit.in || 'Sin registrar')}}</td>         
+          <td>{{(visit.out || 'Sin registrar')}}</td>         
 
         </tr>
       </tbody>

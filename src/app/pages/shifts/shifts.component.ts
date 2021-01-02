@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { Shift, ShiftPages } from '../../models/shift.interface';
-import { MaterializeAction } from 'angular2-materialize'
+import { MaterializeAction, toast } from 'angular2-materialize'
 import { User } from 'src/app/models/user.interface';
 import { News } from 'src/app/models/news.interface';
+import { Visit } from 'src/app/models/visit.interface';
 
 @Component({
   selector: 'app-shifts',
@@ -19,6 +20,7 @@ export class ShiftsComponent implements OnInit {
   shiftsForm: FormGroup;
   guardsShiftSelected: User[];
   newsShiftSelected: News[];
+  visitsShiftSelected: Visit[];
   public pages = [];
   public actualPage: number;
   public lastPage: number;
@@ -28,6 +30,7 @@ export class ShiftsComponent implements OnInit {
   public pagelimit: number;
   modalActions = new EventEmitter<string|MaterializeAction>();
   modalNewsActions = new EventEmitter<string|MaterializeAction>();
+  modalVisitsActions = new EventEmitter<string|MaterializeAction>();
   
   constructor(
     private router: Router,
@@ -52,6 +55,9 @@ export class ShiftsComponent implements OnInit {
     this.guardsShiftSelected = shiftData
     if(this.guardsShiftSelected){
       this.modalActions.emit({action:"modal",params:['open']});
+    } else {
+      console.log("error al abrir modal")
+      alert("error al abrir reportes")
     }
     
   }
@@ -62,6 +68,18 @@ export class ShiftsComponent implements OnInit {
       this.modalNewsActions.emit({action:"modal",params:['open']});
     } else {
       console.log("error al abrir modal")
+      alert("error al abrir novedades")
+    }
+  }
+
+  openModalVisits(visits) {
+    console.log(visits)
+    this.visitsShiftSelected = visits
+    if(this.visitsShiftSelected){
+      this.modalVisitsActions.emit({action:"modal",params:['open']});
+    } else {
+      console.log("error al abrir modal")
+      alert("error al abrir visitas")
     }
   }
 
@@ -69,10 +87,20 @@ export class ShiftsComponent implements OnInit {
     this.guardsShiftSelected = null;
     this.modalActions.emit({action:"modal",params:['close']});
   }
-  /* closeModalNews() {
-    this.guardsShiftSelected = null;
-    this.modalNewsActions.emit({action:"modal2",params:['close']});
-  } */
+
+  closeModalNews() {
+    this.newsShiftSelected = null;
+    this.modalNewsActions.emit({action:"modal",params:['close']});
+  }
+
+  closeModalVisits() {
+    this.visitsShiftSelected = null;
+    this.modalVisitsActions.emit({action:"modal",params:['close']});
+  }
+
+  download() {
+    toast("Descargando",1000)
+  }
 
   chargePage(page: number) {
     this.actualPage = page;
