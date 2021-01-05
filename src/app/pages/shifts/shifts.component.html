@@ -13,15 +13,12 @@
         </div>
       </nav>
     </div>
-    <div class="input-field col s12 m3 card card-input hoverable no-margin valign-wrapper right">
-      <i class="material-icons prefix">list</i>
-      <input id="icon_prefix" placeholder="Cantidad turnos" formControlName="limit" list="limit" type="text" class="validate card-input">
-      <datalist id="limit">
-        <option value="10">10 turnos</option>
-        <option value="15">15 turnos</option>
-        <option value="20">20 turnos</option>
-      </datalist>
+    <div class="col m2 offset-m6">
+      <a class="btn-floating right tooltipped hs-color" materialize="tooltip" (click)="openModalfilter()" data-position="left" data-delay="50" data-tooltip="Agregar filtro">
+        <i class="material-icons">edit</i>
+      </a>
     </div>
+    
   <div *ngIf="$shifts | loading | async as shiftsData;">
     <!-- clients data -->
     <ng-template [ngIf]="shiftsData.value">
@@ -31,64 +28,64 @@
             <table class="striped">
               <thead class="hs-color">
                 <tr>
-                  <th class="white-text min-width">Tipo</th>
-                  <th class="white-text min-width">Fecha</th>
-                  <th class="white-text max-width">Inicio</th>
-                  <th class="white-text max-width">Termino</th>
-                  <th class="white-text max-width">Locacion</th>
-                  <th class="white-text max-width">Cliente</th>
-                  <th class="white-text min-width">Guardias</th>
-                  <th class="white-text min-width">Novedades</th>
-                  <th class="white-text min-width">Visitas</th>
-                  <th class="white-text min-width">Descargar</th>
+                  <th class="white-text center">Tipo</th>
+                  <th class="white-text center">Fecha</th>
+                  <th class="white-text center">Inicio</th>
+                  <th class="white-text center">Termino</th>
+                  <th class="white-text center">Locacion</th>
+                  <th class="white-text center">Cliente</th>
+                  <th class="white-text center">Guardias</th>
+                  <th class="white-text center">Novedades</th>
+                  <th class="white-text center">Visitas</th>
+                  <th class="white-text center">Enviar</th>
                 </tr>
               </thead>
 
               <tbody>
                 <tr *ngFor="let shift of shiftsData.value.shifts">
                   <!-- <pre>{{ shift | json }}</pre> -->
-                  <td *ngIf="shift.type === 'Day'" class="min-width">Día</td>
-                  <td *ngIf="shift.type === 'Night'" class="min-width">Noche</td>
-                  <td class="min-width">{{(shift.date | date: 'shortDate' )}}</td>
-                  <td class="max-width">{{('2020-12-31:' + shift.start) | date: 'shortTime'}}</td>
-                  <td class="max-width">{{('2020-12-31:' + shift.finish) | date: 'shortTime'}}</td>
-                  <td class="max-width">{{(shift.shiftPlace || '')}}</td>
-                  <td class="max-width">{{(shift.clientClient.name || '')}}</td>
+                  <td *ngIf="shift.type === 'Day'" class="">Día</td>
+                  <td *ngIf="shift.type === 'Night'" class="">Noche</td>
+                  <td class="">{{(shift.date | date: 'shortDate' )}}</td>
+                  <td class="">{{('2020-12-31:' + shift.start) | date: 'shortTime'}}</td>
+                  <td class="">{{('2020-12-31:' + shift.finish) | date: 'shortTime'}}</td>
+                  <td class="">{{(shift.shiftPlace || '')}}</td>
+                  <td class="">{{(shift.clientClient.name || '')}}</td>
                   <!-- Modal Trigger -->
-                  <td class="min-width">
+                  <td class="">
                     <a class="btn-flat valign-wrapper" (click)="openModal(shift.guards)">
                       <div class="row valign-wrapper">
                         <i class=" material-icons hs-text-color" id="icon">assignment_ind</i>
-                        <h6 class=" hs-text-color">{{(shift.news).length+1}}</h6>
+                        <span class="badge amber white-text">{{shift.guards.length}}</span>
                       </div>
                     </a>
                   </td>
-                  <td class="min-width ">
+                  <td class=" center">
                     <a *ngIf="shift.news.length" class="btn-flat" (click)="openModalNews(shift.news)">
                       <div class="valign-wrapper">
                         <i class="material-icons hs-text-color" id="icon">assignment</i>
-                        <h6 class="hs-text-color">{{(shift.news).length+1}}</h6>
+                        <span class="badge amber white-text">{{shift.news.length}}</span>
                       </div>
                     </a>
-                    <a *ngIf="!shift.news.length" class="btn-flat disabled">
-                      <i class="material-icons hs-cruz-color" id="icon">cancel</i>
+                    <a *ngIf="!shift.news.length">
+                      <i class="material-icons grey-text text-lighten-1" id="icon">cancel</i>
                     </a>
                   </td>
-                  <td class="min-width">
+                  <td class=" center">
                     <a *ngIf="shift.visits.length" class="btn-flat" (click)="openModalVisits(shift.visits)">
                       <div class="valign-wrapper">
                         <i class="material-icons hs-text-color" id="icon">directions_walk</i>
-                        <h6 class="hs-text-color">{{(shift.visits).length+1}}</h6>
+                        <span class="badge amber white-text">{{shift.visits.length}}</span>
                       </div>
                       
                     </a>
-                    <a *ngIf="!shift.visits.length" class="btn-flat disabled">
-                      <i class="material-icons hs-cruz-color" id="icon">cancel</i>
+                    <a *ngIf="!shift.visits.length">
+                      <i class="material-icons grey-text text-lighten-1" id="icon">cancel</i>
                     </a>
                   </td>
-                  <td class="min-width">
-                    <a class="btn-flat" (click)="download()">
-                      <i class="material-icons hs-text-color" id="icon">get_app</i>
+                  <td class="">
+                    <a class="btn-flat" (click)="sendReport(shift.shiftId,shift.client)">
+                      <i class="material-icons hs-text-color" id="icon">email</i>
                     </a>
                   </td>
                 </tr>
@@ -96,14 +93,9 @@
             </table>
           </div>
           <ul class="pagination card-panel center">
-            <div *ngIf="actualPage==1; then chevron_leftDisableBlock; else chevron_leftEnableBlock"></div>
-            <ng-template #chevron_leftDisableBlock><li class="waves-effect disabled"><a><i class="material-icons">chevron_left</i></a></li></ng-template>
-            <ng-template #chevron_leftEnableBlock><li (click)="chargePage(lastPage)" class="waves-effect"><a><i class="material-icons">chevron_left</i></a></li></ng-template>
-            <li *ngFor="let page of pages" (click)="chargePage(page.number)" class="waves-effect" [ngClass]="page.state">
-              <a>{{page.number}}</a></li>
-            <div *ngIf="actualPage==pagelimit; then chevron_rightDisableBlock; else chevron_rightEnableBlock"></div>
-            <ng-template #chevron_rightDisableBlock><li class="waves-effect disabled"><a><i class="material-icons">chevron_right</i></a></li></ng-template>
-            <ng-template #chevron_rightEnableBlock><li (click)="chargePage(nextPage)" class="waves-effect"><a><i class="material-icons">chevron_right</i></a></li></ng-template>
+            <li class="waves-effect" [ngClass]="{'disabled' : 1==actualPage}"><a ><i class="material-icons" (click)="prevPage()">chevron_left</i></a></li>
+            <li *ngFor="let page of pages" [ngClass]="{'hs-color' : page==actualPage}" (click)="goToPage(page)"><a [ngClass]="{'white-text' : page==actualPage}">{{page}}</a></li>
+            <li class="waves-effect" [ngClass]="{'disabled' : pages.length==actualPage}"><a ><i class="material-icons" (click)="nextPage()">chevron_right</i></a></li>
           </ul>
         </div>
       </div>
@@ -217,7 +209,7 @@
       <thead class="hs-color">
         <tr>
           <th class="white-text">Título</th>
-          <th class="white-text max-width">Descripción</th>
+          <th class="white-text ">Descripción</th>
         </tr>
       </thead>
 
@@ -225,7 +217,7 @@
         <tr *ngFor="let new of newsShiftSelected">
           <!-- <pre>{{ shift | json }}</pre> -->
           <td>{{(new.title || 'Sin titulo')}}</td>
-          <td class="max-width">{{(new.description || 'Sin descripción')}}</td>         
+          <td class="">{{(new.description || 'Sin descripción')}}</td>         
 
         </tr>
       </tbody>
@@ -257,7 +249,7 @@
       <thead class="hs-color">
         <tr>
           <th class="white-text">Nombre</th>
-          <!-- <th class="white-text max-width">Descripción</th> -->
+          <!-- <th class="white-text ">Descripción</th> -->
           <th class="white-text">Rut</th>
           <th class="white-text">Patente</th>
           <th class="white-text">Entrada</th>
@@ -269,7 +261,7 @@
         <tr *ngFor="let visit of visitsShiftSelected">
           <!-- <pre>{{ shift | json }}</pre> -->
           <td>{{(visit.name || 'Sin registrar')}}</td>
-          <!-- <td class="max-width">{{(visit.patent || 'Sin descripción')}}</td>          -->
+          <!-- <td class="">{{(visit.patent || 'Sin descripción')}}</td>          -->
           <td>{{(visit.rut || 'Sin registrar')}}</td>         
           <td>{{(visit.patent || 'Sin registrar')}}</td>         
           <td>{{(visit.in || 'Sin registrar')}}</td>         
@@ -283,4 +275,53 @@
   <div class="modal-footer">
     <a class="modal-close waves-effect waves-blue btn-flat">Cerrar</a>
   </div>
+</div>
+  <!-- Modal Structure Filters -->
+<div id="modal3" class="modal modal-fixed-footer" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalfilterActions">
+  <nav id="modal_nav" class="row hs-color">
+    <div class="col m11 no-margin">
+      <ul>
+        <li><div class="valign-wrapper"><i class="material-icons">edit</i><h5>Filtros</h5></div></li>
+      </ul>
+    </div>
+    <div >
+      <ul>
+        <li ><a class="modal-close waves-effect waves-blue"><i class="material-icons">close</i></a></li>
+        <li></li>
+      </ul>
+    </div>
+  </nav>
+  <form materialize [formGroup]="filtersForm" (ngSubmit)="addFilter()">
+    <div class="modal-content">
+      <div class="row">
+        <div class="row">
+          <div class="input-field col s12">
+            <input placeholder="Placeholder" id="client" list="clients" type="text" class="validate" formControlName="client">
+            <label for="client">Cliente</label>
+            <datalist id="clients" *ngIf="$clients | async as clients">
+              <option *ngFor="let client of clients.clients" [value]="client.name"></option>
+            </datalist>
+          </div>
+          <div class="input-field col s12">
+            <input id="date" type="date" formControlName="date" [min]="minDate" [max]="maxDate">
+            <label for="date" class="active">Fecha</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="icon_prefix" formControlName="limit" list="limit" type="number" class="validate">
+            <label for="limit">limite</label>
+            <datalist id="limit">
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="30">30</option>
+            </datalist>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="modal-action modal-close waves-effect btn-flat ">
+        filtrar
+      </button>
+    </div>
+  </form>
 </div>

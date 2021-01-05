@@ -1,9 +1,6 @@
 .hs-color {
   background-color: #001039;
 }
-.hs-cruz-color {
-  color: #b71c1c;
-}
 
 .hs-text-color {
   color: #001039;
@@ -75,4 +72,16 @@ img.report-error {
 
 .valign-wrapper>.material-icons {
   padding-right: 16px;
+}
+
+span.badge {
+  border-radius: 100%;
+  min-width: 0;
+  position: absolute;
+  margin: 35px 0 0 20px;
+}
+
+td:nth-child(3),td:nth-child(4),th:nth-child(3),th:nth-child(4) {
+  width: 8%;
+  min-width: 81px;
 }
