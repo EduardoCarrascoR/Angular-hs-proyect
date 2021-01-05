@@ -35,5 +35,4 @@ export class LoginComponent implements OnInit {
     let password = this.loginForm.value.password;
     this.auth.login(rut, password)
   }
-
 }

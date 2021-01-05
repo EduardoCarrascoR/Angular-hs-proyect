@@ -7,8 +7,7 @@
       <nav class="hs-color">
         <div class="nav-wrapper">
           <div class="col s12">
-            <a routerLink="/dashboard/home" class="breadcrumb">Dashboard</a>
-            <a routerLink="/dashboard/home" class="breadcrumb">Home</a>
+            <a routerLink="/dashboard/home" class="breadcrumb">Inicio</a>
           </div>
         </div>
       </nav>
@@ -91,13 +90,13 @@
         </div>
       </div>
     </ng-template>
-    <!-- error for get clients data -->
+    <!-- error for get ´Report data -->
     <ng-template [ngIf]="reportsData.error">
       <div class="col l6 offset-l3 center">
         <div class="card-panel">
           <i class="material-icons large amber-text">sentiment_dissatisfied</i>
-          <h3>No se encuentran los reportes</h3>
-          <p>No hay ningun turno ingresado. Se sugiere que ingrese alguno.</p>
+          <h3>No se han encuentrado reportes</h3>
+          <p>No hay ningun reporte ingresado este mes.</p>
         </div>
       </div>
     </ng-template>

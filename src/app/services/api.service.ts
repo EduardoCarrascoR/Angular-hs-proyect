@@ -30,12 +30,20 @@ export class ApiService {
     return this.http.get<User>(this.url + '/users/allGuards')
   }
 
-  getClients(): Observable<Client> {
-    return this.http.get<Client>(this.url + '/clients/all')
+  getClients(): Observable<Client[]> {
+    return this.http.get<Client[]>(this.url + '/clients/all')
   }
 
-  getShifts(page: number, limit: number): Observable<Shift> {
-    return this.http.post<Shift>(this.url + '/shifts/pagiShift', { page, limit })
+  getShifts(page: number, limit: number, date?: Date, client?: number): Observable<Shift> {
+    if (date && !client) {
+      return this.http.post<Shift>(this.url + '/shifts/pagiShift', { page, limit, date })
+    } else if (date && client) {
+      return this.http.post<Shift>(this.url + '/shifts/pagiShift', { page, limit, date, client })
+    } else if (!date && !client) {
+      return this.http.post<Shift>(this.url + '/shifts/pagiShift', { page, limit })
+    } else  if(!date && client){
+      return this.http.post<Shift>(this.url + '/shifts/pagiShift', { page, limit, client })
+    }
   }
   
   postClient(name: string, address: string, phone: string, email: string): Observable<Client> {
@@ -52,5 +60,9 @@ export class ApiService {
 
   getReportsByClientIdAndDate(clientId: number, date: string): Observable<any> {
     return this.http.get<any>(this.url + `/clients/reportClient/${clientId}/date/${date}`)
+  }
+
+  sendReport(shiftId:number, client: number): Observable<any> {
+    return this.http.get<any>(this.url + `/shifts/pdf/${shiftId}/client/${client}`)
   }
 }
