@@ -27,6 +27,10 @@ export class ShiftsComponent implements OnInit {
   visitsShiftSelected: Visit[];
   minDate:string;
   maxDate:string;
+  paramsModal = [{
+    dismissible: false,
+    startingTop: '50%'
+  }]
   public pages = [];
   public actualPage: number;
   public nextsPage: number;
@@ -36,6 +40,7 @@ export class ShiftsComponent implements OnInit {
   modalNewsActions = new EventEmitter<string|MaterializeAction>();
   modalVisitsActions = new EventEmitter<string|MaterializeAction>();
   modalfilterActions = new EventEmitter<string|MaterializeAction>();
+  modalGpsActions = new EventEmitter<string|MaterializeAction>();
   
   constructor(
     private router: Router,
@@ -103,6 +108,11 @@ export class ShiftsComponent implements OnInit {
     this.modalfilterActions.emit({action:"modal",params:['open']});
   }
 
+  openModalGps() {
+    this.modalActions.emit({action:"modal",params:['close']});
+    this.modalGpsActions.emit({action:"modal",params:['open']});
+  }
+
   closeModal() {
     this.guardsShiftSelected = null;
     this.modalActions.emit({action:"modal",params:['close']});
@@ -121,6 +131,11 @@ export class ShiftsComponent implements OnInit {
   closeModalFilter() {
     this.visitsShiftSelected = null;
     this.modalfilterActions.emit({action:"modal",params:['close']});
+  }
+
+  closeModalGps() {
+    this.modalGpsActions.emit({action:"modal",params:['close']});
+    this.modalActions.emit({action:"modal",params:['open']});
   }
 
   sendReport(shiftId,client) {

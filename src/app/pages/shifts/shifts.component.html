@@ -173,9 +173,11 @@
             <div class="card-stacked ">
               <div class="card-content">
                 <div>
-                  <div class="valign-wrapper"><i class="material-icons ">person</i>{{(guard.firstname || '') + ' ' + (guard.lastname || '')}}</div>
-                  <div class="valign-wrapper"><i class="material-icons ">subtitles</i>{{ guard.rut }}</div>
-                  <div class="valign-wrapper"><i class="material-icons ">local_phone</i>{{ guard.phone }}</div>
+                  <div class="valign-wrapper"><i class="material-icons hs-text-color">person</i>{{(guard.firstname || '') + ' ' + (guard.lastname || '')}}</div>
+                  <div class="valign-wrapper"><i class="material-icons hs-text-color">subtitles</i>{{ guard.rut }}</div>
+                  <div class="valign-wrapper"><i class="material-icons hs-text-color">local_phone</i>{{ guard.phone }}</div>
+                  <a *ngIf="true" (click)="openModalGps()" class="btn-flat pading-buton-text"><div class="valign-wrapper "><i class="material-icons hs-text-color">gps_fixed</i></div></a>
+                  <a *ngIf="false"><div class="valign-wrapper"><i class="material-icons grey-text">gps_not_fixed</i></div></a>
                 </div>
               </div>
             </div>
@@ -291,37 +293,60 @@
       </ul>
     </div>
   </nav>
-  <form materialize [formGroup]="filtersForm" (ngSubmit)="addFilter()">
-    <div class="modal-content">
+  <div class="modal-content">
+    <div class="row">
       <div class="row">
-        <div class="row">
-          <div class="input-field col s12">
-            <input placeholder="Placeholder" id="client" list="clients" type="text" class="validate" formControlName="client">
-            <label for="client">Cliente</label>
-            <datalist id="clients" *ngIf="$clients | async as clients">
-              <option *ngFor="let client of clients.clients" [value]="client.name"></option>
-            </datalist>
-          </div>
-          <div class="input-field col s12">
-            <input id="date" type="date" formControlName="date" [min]="minDate" [max]="maxDate">
-            <label for="date" class="active">Fecha</label>
-          </div>
-          <div class="input-field col s12">
-            <input id="icon_prefix" formControlName="limit" list="limit" type="number" class="validate">
-            <label for="limit">limite</label>
-            <datalist id="limit">
-              <option value="10">10</option>
-              <option value="20">20</option>
-              <option value="30">30</option>
-            </datalist>
-          </div>
+        <div class="input-field col s12">
+          <input placeholder="Placeholder" id="client" list="clients" type="text" class="validate" formControlName="client">
+          <label for="client">Cliente</label>
+          <datalist id="clients" *ngIf="$clients | async as clients">
+            <option *ngFor="let client of clients.clients" [value]="client.name"></option>
+          </datalist>
+        </div>
+        <div class="input-field col s12">
+          <input id="date" type="date" formControlName="date" [min]="minDate" [max]="maxDate">
+          <label for="date" class="active">Fecha</label>
+        </div>
+        <div class="input-field col s12">
+          <input id="icon_prefix" formControlName="limit" list="limit" type="number" class="validate">
+          <label for="limit">limite</label>
+          <datalist id="limit">
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+          </datalist>
         </div>
       </div>
     </div>
-    <div class="modal-footer">
-      <button type="submit" class="modal-action modal-close waves-effect btn-flat ">
-        filtrar
-      </button>
-    </div>
-  </form>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="modal-action modal-close waves-effect btn-flat ">
+      filtrar
+    </button>
+  </div>
 </div>
+<!-- Modal Structure GPS -->
+<div id="modal4" class="modal modal-fixed-footer" materialize="modal" [materializeParams]="paramsModal" [materializeActions]="modalGpsActions">
+  <nav id="modal_nav" class="row hs-color">
+    <div class="col m11 no-margin">
+      <ul>
+        <li><div class="valign-wrapper"><i class="material-icons">gps_fixed</i><h5>Ubicación</h5></div></li>
+      </ul>
+    </div>
+    <div >
+      <ul>
+        <li ><a class="waves-effect waves-blue" (click)="closeModalGps()"><i class="material-icons">close</i></a></li>
+        <li></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="modal-content">
+      <label class="center">Gps señal</label>
+  </div>
+  <div class="modal-footer">
+    <button class="modal-action waves-effect btn-flat " (click)="closeModalGps()">
+      close
+    </button>
+  </div>
+</div>
+
