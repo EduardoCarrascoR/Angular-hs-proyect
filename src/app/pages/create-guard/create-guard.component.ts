@@ -12,7 +12,7 @@ import { Router } from '@angular/router'
 export class CreateGuardComponent implements OnInit {
   
   createGuardForm: FormGroup;
-
+  variableRut
   constructor(
     private router: Router,
     public formBuilder: FormBuilder,
@@ -50,6 +50,46 @@ export class CreateGuardComponent implements OnInit {
       .catch(err => {
         toast('Error al crear guardia', 3000)
       })
+  }
+
+  rut(rut: any) {
+    let div1, div2, div3, div4, formatRut;
+    let data = rut.target.value
+
+    switch (data.length) {
+      case 1:
+        return data;
+      case 2:
+        return data;
+      case 3:
+        return data;
+      case 4:
+        return data;
+      case 5:
+        return data;
+      case 6:
+        return data;
+      case 7:
+        return data;
+      case 8:
+        div1 = data.slice(0, 1);
+        div2 = data.slice(1, 4);
+        div3 = data.slice(4, 7);
+        div4 = data.slice(7, 8);
+        formatRut = div1 + '.' + div2 + '.' + div3 + '-' + div4
+        this.variableRut = formatRut
+        break;
+      case 9:
+        div1 = data.slice(0, 2);
+        div2 = data.slice(2, 5);
+        div3 = data.slice(5, 8);
+        div4 = data.slice(8, 9);
+        formatRut = div1 + '.' + div2 + '.' + div3 + '-' + div4
+        this.variableRut = formatRut
+        break;
+      }
+      return this.variableRut
+
   }
 
 }

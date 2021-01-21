@@ -173,9 +173,11 @@
             <div class="card-stacked ">
               <div class="card-content">
                 <div>
-                  <div class="valign-wrapper"><i class="material-icons ">person</i>{{(guard.firstname || '') + ' ' + (guard.lastname || '')}}</div>
-                  <div class="valign-wrapper"><i class="material-icons ">subtitles</i>{{ guard.rut }}</div>
-                  <div class="valign-wrapper"><i class="material-icons ">local_phone</i>{{ guard.phone }}</div>
+                  <div class="valign-wrapper"><i class="material-icons hs-text-color">person</i>{{(guard.firstname || '') + ' ' + (guard.lastname || '')}}</div>
+                  <div class="valign-wrapper"><i class="material-icons hs-text-color">subtitles</i>{{ guard.rut }}</div>
+                  <div class="valign-wrapper"><i class="material-icons hs-text-color">local_phone</i>{{ guard.phone }}</div>
+                  <a *ngIf="true" (click)="openModalGps()" class="btn-flat pading-buton-text"><div class="valign-wrapper "><i class="material-icons hs-text-color">gps_fixed</i></div></a>
+                  <a *ngIf="false"><div class="valign-wrapper"><i class="material-icons grey-text">gps_not_fixed</i></div></a>
                 </div>
               </div>
             </div>
@@ -276,8 +278,8 @@
     <a class="modal-close waves-effect waves-blue btn-flat">Cerrar</a>
   </div>
 </div>
-  <!-- Modal Structure Filters -->
-<div id="modal3" class="modal modal-fixed-footer" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalfilterActions">
+ <!-- Modal Structure Filters -->
+ <div id="modal3" class="modal modal-fixed-footer" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalfilterActions">
   <nav id="modal_nav" class="row hs-color">
     <div class="col m11 no-margin">
       <ul>
@@ -325,3 +327,28 @@
     </div>
   </form>
 </div>
+<!-- Modal Structure GPS -->
+<div id="modal4" class="modal modal-fixed-footer" materialize="modal" [materializeParams]="paramsModal" [materializeActions]="modalGpsActions">
+  <nav id="modal_nav" class="row hs-color">
+    <div class="col m11 no-margin">
+      <ul>
+        <li><div class="valign-wrapper"><i class="material-icons">gps_fixed</i><h5>Ubicación</h5></div></li>
+      </ul>
+    </div>
+    <div >
+      <ul>
+        <li ><a class="waves-effect waves-blue" (click)="closeModalGps()"><i class="material-icons">close</i></a></li>
+        <li></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="modal-content">
+      <label class="center">Gps señal</label>
+  </div>
+  <div class="modal-footer">
+    <button class="modal-action waves-effect btn-flat " (click)="closeModalGps()">
+      close
+    </button>
+  </div>
+</div>
+
