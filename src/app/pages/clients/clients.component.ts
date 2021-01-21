@@ -25,7 +25,6 @@ export class ClientsComponent implements OnInit {
 
   ngOnInit(): void {
     this.clients$ = this.api.getClients()
-    console.log(this.today)
   }
 
   openModal(client) {
