@@ -278,8 +278,8 @@
     <a class="modal-close waves-effect waves-blue btn-flat">Cerrar</a>
   </div>
 </div>
-  <!-- Modal Structure Filters -->
-<div id="modal3" class="modal modal-fixed-footer" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalfilterActions">
+ <!-- Modal Structure Filters -->
+ <div id="modal3" class="modal modal-fixed-footer" materialize="modal" [materializeParams]="[{dismissible: false}]" [materializeActions]="modalfilterActions">
   <nav id="modal_nav" class="row hs-color">
     <div class="col m11 no-margin">
       <ul>
@@ -293,37 +293,39 @@
       </ul>
     </div>
   </nav>
-  <div class="modal-content">
-    <div class="row">
+  <form materialize [formGroup]="filtersForm" (ngSubmit)="addFilter()">
+    <div class="modal-content">
       <div class="row">
-        <div class="input-field col s12">
-          <input placeholder="Placeholder" id="client" list="clients" type="text" class="validate" formControlName="client">
-          <label for="client">Cliente</label>
-          <datalist id="clients" *ngIf="$clients | async as clients">
-            <option *ngFor="let client of clients.clients" [value]="client.name"></option>
-          </datalist>
-        </div>
-        <div class="input-field col s12">
-          <input id="date" type="date" formControlName="date" [min]="minDate" [max]="maxDate">
-          <label for="date" class="active">Fecha</label>
-        </div>
-        <div class="input-field col s12">
-          <input id="icon_prefix" formControlName="limit" list="limit" type="number" class="validate">
-          <label for="limit">limite</label>
-          <datalist id="limit">
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="30">30</option>
-          </datalist>
+        <div class="row">
+          <div class="input-field col s12">
+            <input placeholder="Placeholder" id="client" list="clients" type="text" class="validate" formControlName="client">
+            <label for="client">Cliente</label>
+            <datalist id="clients" *ngIf="$clients | async as clients">
+              <option *ngFor="let client of clients.clients" [value]="client.name"></option>
+            </datalist>
+          </div>
+          <div class="input-field col s12">
+            <input id="date" type="date" formControlName="date" [min]="minDate" [max]="maxDate">
+            <label for="date" class="active">Fecha</label>
+          </div>
+          <div class="input-field col s12">
+            <input id="icon_prefix" formControlName="limit" list="limit" type="number" class="validate">
+            <label for="limit">limite</label>
+            <datalist id="limit">
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="30">30</option>
+            </datalist>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="modal-footer">
-    <button type="submit" class="modal-action modal-close waves-effect btn-flat ">
-      filtrar
-    </button>
-  </div>
+    <div class="modal-footer">
+      <button type="submit" class="modal-action modal-close waves-effect btn-flat ">
+        filtrar
+      </button>
+    </div>
+  </form>
 </div>
 <!-- Modal Structure GPS -->
 <div id="modal4" class="modal modal-fixed-footer" materialize="modal" [materializeParams]="paramsModal" [materializeActions]="modalGpsActions">

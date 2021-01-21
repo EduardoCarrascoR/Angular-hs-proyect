@@ -71,34 +71,28 @@ export class ShiftsComponent implements OnInit {
   }
 
   openModal(shiftData) {
-    console.log(shiftData)
     this.guardsShiftSelected = shiftData
     if(this.guardsShiftSelected){
       this.modalActions.emit({action:"modal",params:['open']});
     } else {
-      console.log("error al abrir modal")
       alert("error al abrir reportes")
     }
     
   }
   openModalNews(news) {
-    console.log(news)
     this.newsShiftSelected = news
     if(this.newsShiftSelected){
       this.modalNewsActions.emit({action:"modal",params:['open']});
     } else {
-      console.log("error al abrir modal")
       alert("error al abrir novedades")
     }
   }
 
   openModalVisits(visits) {
-    console.log(visits)
     this.visitsShiftSelected = visits
     if(this.visitsShiftSelected){
       this.modalVisitsActions.emit({action:"modal",params:['open']});
     } else {
-      console.log("error al abrir modal")
       alert("error al abrir visitas")
     }
   }
@@ -148,7 +142,6 @@ export class ShiftsComponent implements OnInit {
   }
 
   addFilter() {
-    console.log("add filter")
     this.chargePage(1, this.filtersForm.value.limit)
     this.calcPages()
   }
@@ -159,7 +152,6 @@ export class ShiftsComponent implements OnInit {
     this.$shifts = this.api.getShifts(page, limit, this.filtersForm.value.date, this.filtersForm.value.client)
     this.$shifts.subscribe((res: any) => {
       this.pagelimit = res.pages
-      console.log(this.pagelimit)
       this.calcPages()
     });
   }
