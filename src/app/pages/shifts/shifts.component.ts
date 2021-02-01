@@ -10,6 +10,7 @@ import { User } from 'src/app/models/user.interface';
 import { News } from 'src/app/models/news.interface';
 import { Visit } from 'src/app/models/visit.interface';
 import { Client } from 'src/app/models/client.interface';
+import { GuardLocation } from 'src/app/models/guardLocation.interface';
 
 @Component({
   selector: 'app-shifts',
@@ -23,6 +24,7 @@ export class ShiftsComponent implements OnInit {
   shiftsForm: FormGroup;
   filtersForm: FormGroup;
   guardsShiftSelected: User[];
+  gpsGuardsShiftSelected: GuardLocation[];
   newsShiftSelected: News[];
   visitsShiftSelected: Visit[];
   minDate:string;
@@ -40,7 +42,6 @@ export class ShiftsComponent implements OnInit {
   modalNewsActions = new EventEmitter<string|MaterializeAction>();
   modalVisitsActions = new EventEmitter<string|MaterializeAction>();
   modalfilterActions = new EventEmitter<string|MaterializeAction>();
-  modalGpsActions = new EventEmitter<string|MaterializeAction>();
   
   constructor(
     private router: Router,
@@ -70,8 +71,9 @@ export class ShiftsComponent implements OnInit {
     })
   }
 
-  openModal(shiftData) {
-    this.guardsShiftSelected = shiftData
+  openModal(guards, GuardLocation?) {
+    this.guardsShiftSelected = guards
+    this.gpsGuardsShiftSelected = GuardLocation
     if(this.guardsShiftSelected){
       this.modalActions.emit({action:"modal",params:['open']});
     } else {
@@ -102,13 +104,9 @@ export class ShiftsComponent implements OnInit {
     this.modalfilterActions.emit({action:"modal",params:['open']});
   }
 
-  openModalGps() {
-    this.modalActions.emit({action:"modal",params:['close']});
-    this.modalGpsActions.emit({action:"modal",params:['open']});
-  }
-
   closeModal() {
     this.guardsShiftSelected = null;
+
     this.modalActions.emit({action:"modal",params:['close']});
   }
 
@@ -125,11 +123,6 @@ export class ShiftsComponent implements OnInit {
   closeModalFilter() {
     this.visitsShiftSelected = null;
     this.modalfilterActions.emit({action:"modal",params:['close']});
-  }
-
-  closeModalGps() {
-    this.modalGpsActions.emit({action:"modal",params:['close']});
-    this.modalActions.emit({action:"modal",params:['open']});
   }
 
   sendReport(shiftId,client) {
